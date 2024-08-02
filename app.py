@@ -128,19 +128,16 @@ pivot_table_avg = pd.pivot_table(
 #     )
 
 if selected == "Dynamic":
-    st.header("Exploratory Data Analysis")
-    st.subheader('GDP Insights')
+    st.header("FAAC Allocation")
+    st.subheader('')
     st.write("""
-    GDP in Constant and Current LCU
-    - Correlation: The GDP in constant and current Local Currency Units (LCU) shows a very high correlation (0.994), indicating consistency in GDP measurements over time.
-    - Trend: A significant upward trend in GDP highlights sustained economic growth in Nigeria over the years.
     """)
 
     numeric_columns = df.select_dtypes(include='number')
     total_allocations_by_state = numeric_columns.set_index(df['State']).sum(axis=1).sort_values(ascending=False)
 
     # Plotting the total allocations by state
-    plt.figure(figsize=(50, 30))
+  #  plt.figure(figsize=(50, 30))
     sns.set_style("whitegrid")
     palette = sns.color_palette("viridis", len(total_allocations_by_state))
     sns.barplot(
@@ -156,17 +153,14 @@ if selected == "Dynamic":
     sns.despine()
     st.pyplot(plt)
 
-    st.subheader('Population Dynamics')
+    st.subheader('')
     st.write("""
-    Total, Female, and Male Populations
-    - Correlation: Strong correlations exist between the total, female, and male populations, indicating consistent growth across all demographic segments.
-    - Trend: Steady population growth from 1960 onwards, with annual growth rates around 2% for both male and female populations.
     """)
 
     selected_states = ['Bayelsa', 'Lagos', 'Akwa Ibom', 'Kano', 'Rivers', 'Delta', 'Ondo']
 
     # Plotting the monthly allocations trend for selected states
-    plt.figure(figsize=(50, 30))
+    # plt.figure(figsize=(50, 30))
     for state in selected_states:
         dates = df.columns[2:-1]  # Start from index 2 to exclude 'State' and 'Region'
         dates = pd.to_datetime(dates, format='%b-%Y')
@@ -179,10 +173,9 @@ if selected == "Dynamic":
     plt.xticks(rotation=90)
     st.pyplot(plt)
 
-    st.subheader('Petrol Prices and GDP')
+    st.subheader('')
     st.write("""
-    - Correlation: Petrol prices in Naira show a positive correlation with GDP in US dollars (0.229) and per capita GDP (0.286), suggesting a relationship between energy prices and economic performance.
-    - Trend: Petrol prices have seen a steady increase, particularly from the late 1990s onwards, correlating with global oil price changes and domestic policy adjustments.
+    
     """)
 
     monthly_avg_pivot = pd.pivot_table(
@@ -201,7 +194,7 @@ if selected == "Dynamic":
     monthly_avg_pivot = monthly_avg_pivot.sort_index()
 
     # Plot monthly average allocations by region
-    plt.figure(figsize=(50, 30))
+    # plt.figure(figsize=(50, 30))
     for region in monthly_avg_pivot.columns:
         plt.plot(monthly_avg_pivot.index, monthly_avg_pivot[region], marker='o', label=region)
     plt.title('Monthly Average Allocations by Region')
@@ -213,9 +206,7 @@ if selected == "Dynamic":
 
     st.subheader('Inflation Trends')
     st.write("""
-    - 1981: Extremely high inflation rates following the global oil price collapse.
-    - 1988-1989: High consumer price inflation, reflecting economic instability.
-    - 1992-1995: Persistent high inflation due to structural adjustment programs and economic reforms.
+    
     """)
 
     # Pivot table to sum allocations by region for each month
@@ -243,7 +234,7 @@ if selected == "Dynamic":
     pivot_table_avg_transposed.index = pd.to_datetime(pivot_table_avg_transposed.index, format='%b-%Y')
 
     # Plotting sum allocations time series for each region
-    plt.figure(figsize=(50, 30))
+   # plt.figure(figsize=(50, 30))
     for region in pivot_table_sum_transposed.columns:
         plt.plot(pivot_table_sum_transposed[region], label=region)
     plt.title('Sum Allocations Time Series by Region')
@@ -254,7 +245,7 @@ if selected == "Dynamic":
     st.pyplot(plt)
 
     # Plotting average allocations time series for each region
-    plt.figure(figsize=(50, 30))
+    # plt.figure(figsize=(50, 30))
     for region in pivot_table_avg_transposed.columns:
         plt.plot(pivot_table_avg_transposed[region], label=region)
     plt.title('Average Allocations Time Series by Region')
@@ -275,8 +266,7 @@ df_melted['Date'] = pd.to_datetime(df_melted['Date'], format='%b-%Y')
 
 st.subheader('Financial and Monetary Indicators')
 st.write("""
-- Total Reserves: A significant increase in total reserves over the years, indicating improved accumulation of foreign exchange and gold reserves.
-- Narrow Money and Money Supply (M3): Both metrics show noticeable upward trends, reflecting increased monetary circulation.
+
 """)
 
 # Group by region and sum allocations
@@ -291,7 +281,7 @@ st.plotly_chart(fig1)
 
 st.subheader('Credit to Private Sector')
 st.write("""
-- Credit Growth: Steady increase in credit extended to the private sector, indicating growth in private sector activities and investments.
+
 """)
 
 # Find the top states by region
@@ -315,7 +305,7 @@ fig2 = px.bar(
 # Customize the layout for better readability
 fig2.update_layout(
     autosize=False,
-    width=1650,
+    width=1850,
     height=600,
     xaxis_title='State',
     yaxis_title='Total Allocation',
@@ -373,7 +363,7 @@ if start_year == end_year:
     if plot_type == "Total Sum":
         # Create monthly line plot for total sum
         summed_data_a = filtered_data_a.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0)
-        fig, ax = plt.subplots(figsize=(50, 30))
+       # fig, ax = plt.subplots(figsize=(50, 30))
         ax.plot(summed_data_a.index, summed_data_a.values, marker='o', label=f"{state_selected_a} - Total Sum")
         ax.set_title(f'Total Allocations by Month for {state_selected_a} in {start_year}')
     else:
@@ -393,13 +383,13 @@ else:
     if plot_type == "Total Sum":
         # Create yearly line plot for total sum
         summed_data_a = filtered_data_a.groupby('Year')['Allocation'].sum().reset_index()
-        fig, ax = plt.subplots(figsize=(50, 30))
+       # fig, ax = plt.subplots(figsize=(50, 30))
         ax.plot(summed_data_a['Year'], summed_data_a['Allocation'], marker='o', label=f"{state_selected_a} - Total Sum")
         ax.set_title(f'Total Allocations for {state_selected_a} Over the Years')
     else:
         # Create yearly line plot for average
         avg_data_a = filtered_data_a.groupby('Year')['Allocation'].mean().reset_index()
-        fig, ax = plt.subplots(figsize=(50, 30))
+       # fig, ax = plt.subplots(figsize=(50, 30))
         ax.plot(avg_data_a['Year'], avg_data_a['Allocation'], marker='o', label=f"{state_selected_a} - Average")
         ax.set_title(f'Average Allocations for {state_selected_a} Over the Years')
 
@@ -413,7 +403,7 @@ st.pyplot(fig)
 
 
 st.write("""
-From 1960 to 2020, the GDP (constant LCU) shows a strong upward trend, reflecting substantial long-term economic growth. Notable growth began in the 2000s, highlighting significant economic expansion and a positive trajectory.
+
 """)
 
 # Plotting the GDP growth trend
@@ -471,7 +461,7 @@ if start_year == end_year:
         # Create monthly line plot for total sum
         summed_data_a = filtered_data_a.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0)
         summed_data_b = filtered_data_b.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0)
-        fig, ax = plt.subplots(figsize=(50, 30))
+      #  fig, ax = plt.subplots(figsize=(50, 30))
         ax.plot(summed_data_a.index, summed_data_a.values, marker='o', label=f"{state_selected_a} - Total Sum")
         ax.plot(summed_data_b.index, summed_data_b.values, marker='o', label=f"{state_selected_b} - Total Sum")
         ax.set_title(f'Total Allocations by Month for {state_selected_a} and {state_selected_b} in {start_year}')
@@ -479,7 +469,7 @@ if start_year == end_year:
         # Create monthly line plot for average
         avg_data_a = filtered_data_a.groupby('Month')['Allocation'].mean().reindex(month_order).fillna(0)
         avg_data_b = filtered_data_b.groupby('Month')['Allocation'].mean().reindex(month_order).fillna(0)
-        fig, ax = plt.subplots(figsize=(50, 30))
+       # fig, ax = plt.subplots(figsize=(50, 30))
         ax.plot(avg_data_a.index, avg_data_a.values, marker='o', label=f"{state_selected_a} - Average")
         ax.plot(avg_data_b.index, avg_data_b.values, marker='o', label=f"{state_selected_b} - Average")
         ax.set_title(f'Average Allocations by Month for {state_selected_a} and {state_selected_b} in {start_year}')
@@ -499,14 +489,14 @@ else:
         # Create yearly line plot for total sum
         summed_data_a = filtered_data_a.groupby('Year')['Allocation'].sum().reset_index()
         summed_data_b = filtered_data_b.groupby('Year')['Allocation'].sum().reset_index()
-        fig, ax = plt.subplots(figsize=(50, 30))
+      #  fig, ax = plt.subplots(figsize=(50, 30))
         ax.plot(summed_data_a['Year'], summed_data_a['Allocation'], marker='o', label=f"{state_selected_a} - Total Sum")
         ax.plot(summed_data_b['Year'], summed_data_b['Allocation'], marker='o', label=f"{state_selected_b} - Total Sum")
         ax.set_title('Total Allocations by State Over the Years')
     else:
         avg_data_a = filtered_data_a.groupby('Year')['Allocation'].mean().reset_index()
         avg_data_b = filtered_data_b.groupby('Year')['Allocation'].mean().reset_index()
-        fig, ax = plt.subplots(figsize=(50, 30))
+     #   fig, ax = plt.subplots(figsize=(50, 30))
         ax.plot(avg_data_a['Year'], avg_data_a['Allocation'], marker='o', label=f"{state_selected_a} - Average")
         ax.plot(avg_data_b['Year'], avg_data_b['Allocation'], marker='o', label=f"{state_selected_b} - Average")
         ax.set_title('Average Allocations by State Over the Years')
@@ -522,7 +512,6 @@ st.pyplot(fig)
 
 
 st.write("""
-The annual GDP growth rate has shown significant volatility, with sharp increases and decreases. A notable peak occurred in the early 1970s, indicating rapid economic expansion. The mid-1980s and early 1990s experienced negative growth, reflecting economic recessions. Since the 2000s, the growth rate has been more stable despite some fluctuations. Overall, the data highlights the economy's resilience and ability to recover and continue growing.
 """)
 
 # Plotting GDP Growth by Regime Type in Nigeria 
@@ -532,8 +521,6 @@ st.write('  ***GDP Growth by Regime Type in Nigeria***')
 
 
 st.write("""
-This bar plot shows the average GDP growth rate by regime type in Nigeria from 1960 to 1978. 
-It compares the GDP growth under different regimes (e.g., Military and Civilian) during this period.
 """)
 
 # Plotting CPI over time
@@ -622,9 +609,7 @@ plt.xticks(rotation=45)
 st.pyplot(fig)
 
 st.write("""
-Nigeria's Consumer Price Index (CPI) shows a sharp increase, especially from the early 2000s onwards. 
-There was a relatively stable and low CPI level until the late 1980s, after which it began to rise. 
-The sharp increase in CPI indicates significant inflationary pressures in recent decades, particularly post-2000.
+
 """)
 
 st.markdown('<h4><u>Inflation Insights</u></h4>', unsafe_allow_html=True)
