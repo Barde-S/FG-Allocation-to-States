@@ -552,6 +552,7 @@ if selected == "Dynamic":
             ax.plot(avg_data_b.index, avg_data_b.values, marker='o', label=f"{state_selected_b} - Average")
             ax.set_title(f'Average Allocations by Month for {state_selected_a} and {state_selected_b} in {start_year}')
     else:
+       
         if plot_type == 'Total Sum':
         # Create yearly line plot for total sum
             summed_data_a = filtered_data_a.groupby('Year')['Allocation'].sum().reset_index()
@@ -559,7 +560,7 @@ if selected == "Dynamic":
             ax.plot(summed_data_a['Year'], summed_data_a['Allocation'], marker='o', label=f"{state_selected_a} - Total Sum")
             ax.plot(summed_data_b['Year'], summed_data_b['Allocation'], marker='o', label=f"{state_selected_b} - Total Sum")
             ax.set_title('Total Allocations by LGC Over the Years')
-    else:
+            
         else:
         # Create yearly line plot for average
             avg_data_a = filtered_data_a.groupby('Year')['Allocation'].mean().reset_index()
