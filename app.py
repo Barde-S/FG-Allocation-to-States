@@ -436,12 +436,11 @@ if selected == "Dynamic":
             ax.set_title(f'Average Allocations by Month for {state_selected_a} in {start_year}')
     else:
     # Filter data based on user selection for yearly plot
-            filtered_data_a = allocations_by_year[
-            (allocations_by_year['State'] == state_selected_a) &
-            (allocations_by_year['Year'] >= start_year) &
-            (allocations_by_year['Year'] <= end_year)
+        filtered_data_a = allocations_by_year[
+        (allocations_by_year['State'] == state_selected_a) &
+        (allocations_by_year['Year'] >= start_year) &
+        (allocations_by_year['Year'] <= end_year)
     ]
-
         if plot_type == "Total Sum":    
         # Create yearly line plot for total sum
             summed_data_a = filtered_data_a.groupby('Year')['Allocation'].sum().reset_index()
