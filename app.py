@@ -51,12 +51,10 @@ with st.sidebar:
     )
 
 if selected == "Static":
-    st.header("Exploratory Data Analysis")
-    st.subheader('GDP Insights')
+    st.header("FAAC Allocation")
+    st.subheader('')
     st.write("""
-    GDP in Constant and Current LCU
-    - Correlation: The GDP in constant and current Local Currency Units (LCU) shows a very high correlation (0.994), indicating consistency in GDP measurements over time.
-    - Trend: A significant upward trend in GDP highlights sustained economic growth in Nigeria over the years.
+    Total tllocations to states since 2007 
     """)
     numeric_columns = df.select_dtypes(include='number')
     total_allocations_by_state = numeric_columns.set_index(df['State']).sum(axis=1).sort_values(ascending=False)
@@ -68,7 +66,7 @@ if selected == "Static":
     palette = sns.color_palette("viridis", len(total_allocations_by_state))
     
     # Plotting the total allocations by state
-    plt.figure(figsize=(50, 30))
+    # plt.figure(figsize=(50, 30))
     sns.barplot(
         x=total_allocations_by_state.index,
         y=total_allocations_by_state.values,
