@@ -249,6 +249,14 @@ if selected == "Univariate":
     - Total Reserves: A significant increase in total reserves over the years, indicating improved accumulation of foreign exchange and gold reserves.
     - Narrow Money and Money Supply (M3): Both metrics show noticeable upward trends, reflecting increased monetary circulation.
     """)
+
+
+    df_melted = df.melt(id_vars=['State', 'Region'], var_name='Date', value_name='Allocation')
+
+    # Convert Date column to datetime format
+    df_melted['Date'] = pd.to_datetime(df_melted['Date'], format='%b-%Y')
+
+    
     # Group by region and sum allocations
     region_totals = melted_df.groupby('Region')['Allocation'].sum().reset_index()
 
