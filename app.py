@@ -530,16 +530,7 @@ The annual GDP growth rate has shown significant volatility, with sharp increase
 # Plotting GDP Growth by Regime Type in Nigeria 
 st.write('  ***GDP Growth by Regime Type in Nigeria***')
 # Sample data for demonstration (replace this with your actual DataFrame)
-data = pd.DataFrame({
-    'Regime Type': ['Democracy', 'Democracy', 'Military', 'Military'],
-    'GDP growth (annual %)': [4.5, 3.6, 2.1, 1.2]
-})
-fig, ax = plt.subplots(figsize=(24, 14))
-data.groupby('Regime Type')['GDP growth (annual %)'].mean().plot(kind='bar', ax=ax, color='skyblue')
-ax.set_title('GDP Growth by Regime Type in Nigeria ')
-ax.set_xlabel('Regime Type')
-ax.set_ylabel('Average GDP Growth Rate (%)')
-st.pyplot(fig)
+
 
 
 st.write("""
