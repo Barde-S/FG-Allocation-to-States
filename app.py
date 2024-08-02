@@ -363,7 +363,7 @@ state_selected_a = st.selectbox("Select the first State:", unique_states, key='s
 start_year, end_year = st.slider("Select a year range:", min(unique_years), max(unique_years), (min(unique_years), max(unique_years)), key='range_slider1')
 
 # Prompt user to select whether they want the total sum or average
-plot_type = st.radio("Select the type of plot:", ("Total Sum", "Average"), , key='range_slider1')
+plot_type = st.radio("Select the type of plot:", ("Total Sum", "Average"), key='range_slider1')
 
 if start_year == end_year:
     # Filter data by month within the selected year for both states
@@ -455,7 +455,7 @@ state_selected_b = st.selectbox("Select the second State:", unique_states, key='
 start_year, end_year = st.slider("Select a year range:", min(unique_years), max(unique_years), (min(unique_years), max(unique_years)), key='range_slider2')
 
 # Prompt user to select whether they want the total sum or average
-plot_type = st.radio("Select the type of plot:", ("Total Sum", "Average"), , key='range_slider2')
+plot_type = st.radio("Select the type of plot:", ("Total Sum", "Average"), key='range_slider2')
 
 # Check if start year and end year are the same
 if start_year == end_year:
@@ -588,7 +588,7 @@ start_year, end_year = st.select_slider(
 plot_type = st.radio(
     "Select the type of plot:",
     ('Total Sum', 'Average'),
-    , key='range_slider3'
+    key='range_slider3'
 )
 
 # Filter data based on user selection
