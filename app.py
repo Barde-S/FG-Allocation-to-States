@@ -198,21 +198,21 @@ if selected == "Dynamic":
     st.write("""
     """)
 
-    selected_states = ['Bayelsa', 'Lagos', 'Akwa Ibom', 'Kano', 'Rivers', 'Delta', 'Ondo']
+    # selected_states = ['Bayelsa', 'Lagos', 'Akwa Ibom', 'Kano', 'Rivers', 'Delta', 'Ondo']
 
-    # Plotting the monthly allocations trend for selected states
-    # plt.figure()
-    for state in selected_states:
-        dates = df.columns[2:-1]  # Start from index 2 to exclude 'State' and 'Region'
-        dates = pd.to_datetime(dates, format='%b-%Y')
-        allocations = df.set_index('State').loc[state, dates]
-        plt.plot(dates, allocations, label=state)
-    plt.title('Allocations Trend (2007-2024) For States with The Most Share of Allocation')
-    plt.xlabel('Date')
-    plt.ylabel('Monthly Allocation')
-    plt.legend()
-    plt.xticks(rotation=90)
-    st.pyplot(plt)
+    # # Plotting the monthly allocations trend for selected states
+    # # plt.figure()
+    # for state in selected_states:
+    #     dates = df.columns[2:-1]  # Start from index 2 to exclude 'State' and 'Region'
+    #     dates = pd.to_datetime(dates, format='%b-%Y')
+    #     allocations = df.set_index('State').loc[state, dates]
+    #     plt.plot(dates, allocations, label=state)
+    # plt.title('Allocations Trend (2007-2024) For States with The Most Share of Allocation')
+    # plt.xlabel('Date')
+    # plt.ylabel('Monthly Allocation')
+    # plt.legend()
+    # plt.xticks(rotation=90)
+    # st.pyplot(plt)
 
     st.subheader('')
     st.write("""
