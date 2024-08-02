@@ -66,7 +66,7 @@ if selected == "Static":
     palette = sns.color_palette("viridis", len(total_allocations_by_state))
     
     # Plotting the total allocations by state
-    # plt.figure(figsize=(50, 30))
+    # plt.figure()
     sns.barplot(
         x=total_allocations_by_state.index,
         y=total_allocations_by_state.values,
@@ -137,7 +137,7 @@ if selected == "Dynamic":
     total_allocations_by_state = numeric_columns.set_index(df['State']).sum(axis=1).sort_values(ascending=False)
 
     # Plotting the total allocations by state
-  #  plt.figure(figsize=(50, 30))
+  #  plt.figure()
     sns.set_style("whitegrid")
     palette = sns.color_palette("viridis", len(total_allocations_by_state))
     sns.barplot(
@@ -160,7 +160,7 @@ if selected == "Dynamic":
     selected_states = ['Bayelsa', 'Lagos', 'Akwa Ibom', 'Kano', 'Rivers', 'Delta', 'Ondo']
 
     # Plotting the monthly allocations trend for selected states
-    # plt.figure(figsize=(50, 30))
+    # plt.figure()
     for state in selected_states:
         dates = df.columns[2:-1]  # Start from index 2 to exclude 'State' and 'Region'
         dates = pd.to_datetime(dates, format='%b-%Y')
@@ -194,7 +194,7 @@ if selected == "Dynamic":
     monthly_avg_pivot = monthly_avg_pivot.sort_index()
 
     # Plot monthly average allocations by region
-    # plt.figure(figsize=(50, 30))
+    # plt.figure()
     for region in monthly_avg_pivot.columns:
         plt.plot(monthly_avg_pivot.index, monthly_avg_pivot[region], marker='o', label=region)
     plt.title('Monthly Average Allocations by Region')
@@ -234,7 +234,7 @@ if selected == "Dynamic":
     pivot_table_avg_transposed.index = pd.to_datetime(pivot_table_avg_transposed.index, format='%b-%Y')
 
     # Plotting sum allocations time series for each region
-   # plt.figure(figsize=(50, 30))
+   # plt.figure()
     for region in pivot_table_sum_transposed.columns:
         plt.plot(pivot_table_sum_transposed[region], label=region)
     plt.title('Sum Allocations Time Series by Region')
@@ -245,7 +245,7 @@ if selected == "Dynamic":
     st.pyplot(plt)
 
     # Plotting average allocations time series for each region
-    # plt.figure(figsize=(50, 30))
+    # plt.figure()
     for region in pivot_table_avg_transposed.columns:
         plt.plot(pivot_table_avg_transposed[region], label=region)
     plt.title('Average Allocations Time Series by Region')
@@ -363,13 +363,13 @@ if start_year == end_year:
     if plot_type == "Total Sum":
         # Create monthly line plot for total sum
         summed_data_a = filtered_data_a.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0)
-       # fig, ax = plt.subplots(figsize=(50, 30))
+        fig, ax = plt.subplots()
         ax.plot(summed_data_a.index, summed_data_a.values, marker='o', label=f"{state_selected_a} - Total Sum")
         ax.set_title(f'Total Allocations by Month for {state_selected_a} in {start_year}')
     else:
         # Create monthly line plot for average
         avg_data_a = filtered_data_a.groupby('Month')['Allocation'].mean().reindex(month_order).fillna(0)
-        fig, ax = plt.subplots(figsize=(50, 30))
+        fig, ax = plt.subplots()
         ax.plot(avg_data_a.index, avg_data_a.values, marker='o', label=f"{state_selected_a} - Average")
         ax.set_title(f'Average Allocations by Month for {state_selected_a} in {start_year}')
 else:
@@ -383,13 +383,13 @@ else:
     if plot_type == "Total Sum":
         # Create yearly line plot for total sum
         summed_data_a = filtered_data_a.groupby('Year')['Allocation'].sum().reset_index()
-       # fig, ax = plt.subplots(figsize=(50, 30))
+        fig, ax = plt.subplots()
         ax.plot(summed_data_a['Year'], summed_data_a['Allocation'], marker='o', label=f"{state_selected_a} - Total Sum")
         ax.set_title(f'Total Allocations for {state_selected_a} Over the Years')
     else:
         # Create yearly line plot for average
         avg_data_a = filtered_data_a.groupby('Year')['Allocation'].mean().reset_index()
-       # fig, ax = plt.subplots(figsize=(50, 30))
+        fig, ax = plt.subplots()
         ax.plot(avg_data_a['Year'], avg_data_a['Allocation'], marker='o', label=f"{state_selected_a} - Average")
         ax.set_title(f'Average Allocations for {state_selected_a} Over the Years')
 
@@ -461,7 +461,7 @@ if start_year == end_year:
         # Create monthly line plot for total sum
         summed_data_a = filtered_data_a.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0)
         summed_data_b = filtered_data_b.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0)
-      #  fig, ax = plt.subplots(figsize=(50, 30))
+        fig, ax = plt.subplots()
         ax.plot(summed_data_a.index, summed_data_a.values, marker='o', label=f"{state_selected_a} - Total Sum")
         ax.plot(summed_data_b.index, summed_data_b.values, marker='o', label=f"{state_selected_b} - Total Sum")
         ax.set_title(f'Total Allocations by Month for {state_selected_a} and {state_selected_b} in {start_year}')
@@ -469,7 +469,7 @@ if start_year == end_year:
         # Create monthly line plot for average
         avg_data_a = filtered_data_a.groupby('Month')['Allocation'].mean().reindex(month_order).fillna(0)
         avg_data_b = filtered_data_b.groupby('Month')['Allocation'].mean().reindex(month_order).fillna(0)
-       # fig, ax = plt.subplots(figsize=(50, 30))
+        fig, ax = plt.subplots()
         ax.plot(avg_data_a.index, avg_data_a.values, marker='o', label=f"{state_selected_a} - Average")
         ax.plot(avg_data_b.index, avg_data_b.values, marker='o', label=f"{state_selected_b} - Average")
         ax.set_title(f'Average Allocations by Month for {state_selected_a} and {state_selected_b} in {start_year}')
@@ -489,14 +489,14 @@ else:
         # Create yearly line plot for total sum
         summed_data_a = filtered_data_a.groupby('Year')['Allocation'].sum().reset_index()
         summed_data_b = filtered_data_b.groupby('Year')['Allocation'].sum().reset_index()
-      #  fig, ax = plt.subplots(figsize=(50, 30))
+        fig, ax = plt.subplots()
         ax.plot(summed_data_a['Year'], summed_data_a['Allocation'], marker='o', label=f"{state_selected_a} - Total Sum")
         ax.plot(summed_data_b['Year'], summed_data_b['Allocation'], marker='o', label=f"{state_selected_b} - Total Sum")
         ax.set_title('Total Allocations by State Over the Years')
     else:
         avg_data_a = filtered_data_a.groupby('Year')['Allocation'].mean().reset_index()
         avg_data_b = filtered_data_b.groupby('Year')['Allocation'].mean().reset_index()
-     #   fig, ax = plt.subplots(figsize=(50, 30))
+        fig, ax = plt.subplots()
         ax.plot(avg_data_a['Year'], avg_data_a['Allocation'], marker='o', label=f"{state_selected_a} - Average")
         ax.plot(avg_data_b['Year'], avg_data_b['Allocation'], marker='o', label=f"{state_selected_b} - Average")
         ax.set_title('Average Allocations by State Over the Years')
@@ -574,7 +574,7 @@ filtered_data_a = allocations_by_year[
     (allocations_by_year['Year'] <= end_year)
 ]
 
-fig, ax = plt.subplots(figsize=(50, 30))
+fig, ax = plt.subplots()
 
 if start_year == end_year:
     if plot_type == 'Total Sum':
@@ -627,7 +627,7 @@ filtered_data_b = allocations_by_year[
     (allocations_by_year['Year'] <= end_year)
 ]
 
-fig, ax = plt.subplots(figsize=(50, 30))
+fig, ax = plt.subplots()
 
 if start_year == end_year:
     if plot_type == 'Total Sum':
