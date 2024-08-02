@@ -357,7 +357,7 @@ unique_years = allocations_by_year['Year'].unique()
 st.title("State Allocations Analysis")
 
 # Prompt user to select the first state
-state_selected_a = st.selectbox("Select the first State:", unique_states)
+state_selected_a = st.selectbox("Select the first State:", unique_states, key='state_e')
 
 # Prompt user to select the year range
 start_year, end_year = st.slider("Select a year range:", min(unique_years), max(unique_years), (min(unique_years), max(unique_years)))
@@ -446,10 +446,10 @@ unique_years = allocations_by_year['Year'].unique()
 st.title("State Allocations Analysis")
 
 # Prompt user to select the first state
-state_selected_a = st.selectbox("Select the first State:", unique_states)
+state_selected_a = st.selectbox("Select the first State:", unique_states, key='state_a')
 
 # Prompt user to select the second state
-state_selected_b = st.selectbox("Select the second State:", unique_states)
+state_selected_b = st.selectbox("Select the second State:", unique_states, key='state_b')
 
 # Prompt user to select the year range
 start_year, end_year = st.slider("Select a year range:", min(unique_years), max(unique_years), (min(unique_years), max(unique_years)))
@@ -575,7 +575,7 @@ unique_years = allocations_by_year['Year'].unique()
 st.title("Allocation Data Analysis")
 
 # Select the first state
-state_selected_a = st.selectbox("Select the first LGC:", unique_states)
+state_selected_a = st.selectbox("Select the first LGC:", unique_states, key='state_c')
 
 # Select the year range
 start_year, end_year = st.select_slider(
@@ -643,7 +643,7 @@ st.markdown('<h4><u>Inflation Insights</u></h4>', unsafe_allow_html=True)
 st.write('***Inflation Rate and GDP Growth Rate Over Time***')
 
 # Filter data based on user selection for second LGC
-state_selected_b = st.selectbox("Select the second LGC:", unique_states)
+state_selected_b = st.selectbox("Select the second LGC:", unique_states, key='state_d')
 
 # Filter data based on user selection
 filtered_data_b = allocations_by_year[
