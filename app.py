@@ -219,14 +219,6 @@ if selected == "Dynamic":
     
     """)
 
-    # monthly_avg_pivot = pd.pivot_table(
-    #     df_melted,
-    #     values='Allocation',
-    #     index=df_melted['Date'].dt.strftime('%b'),
-    #     columns='Region',
-    #     aggfunc='mean'
-    # )
-
     # Define the correct order for months
     month_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
