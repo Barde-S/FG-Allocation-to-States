@@ -75,9 +75,9 @@ if selected == "Static":
 
     # Customize the plot
     plt.title('Total Allocations by State (2007-2024)', fontsize=18, fontweight='bold')
-    plt.xlabel('State', fontsize=14, fontweight='bold')
-    plt.ylabel('Total Allocation', fontsize=14, fontweight='bold')
-    plt.xticks(rotation=90, fontsize=12)
+    plt.xlabel('State')
+    plt.ylabel('Total Allocation')
+    plt.xticks(rotation=45)
     plt.yticks(fontsize=12)
 
     # Remove top and right spines
@@ -150,11 +150,11 @@ if selected == "Dynamic":
         y=total_allocations_by_state.values,
         palette=palette
     )
-    plt.title('Total Allocations by State (2007-2024)', fontsize=18, fontweight='bold')
-    plt.xlabel('State', fontsize=14, fontweight='bold')
-    plt.ylabel('Total Allocation', fontsize=14, fontweight='bold')
-    plt.xticks(rotation=90, fontsize=12)
-    plt.yticks(fontsize=12)
+    plt.title('Total Allocations by State (2007-2024)')
+    plt.xlabel('State')
+    plt.ylabel('Total Allocation')
+    plt.xticks(rotation=45)
+    plt.yticks(fontsize=6)
     sns.despine()
     st.pyplot(plt)
 
@@ -175,7 +175,7 @@ if selected == "Dynamic":
     plt.xlabel('Date')
     plt.ylabel('Monthly Allocation')
     plt.legend()
-    plt.xticks(rotation=90)
+    plt.xticks(rotation=45)
     st.pyplot(plt)
 
     st.subheader('')
