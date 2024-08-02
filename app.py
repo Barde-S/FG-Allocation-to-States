@@ -77,7 +77,7 @@ if selected == "Static":
     plt.title('Total Allocations by State (2007-2024)', fontsize=18, fontweight='bold')
     plt.xlabel('State')
     plt.ylabel('Total Allocation')
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=90)
     plt.yticks(fontsize=12)
 
     # Remove top and right spines
@@ -153,7 +153,7 @@ if selected == "Dynamic":
     plt.title('Total Allocations by State (2007-2024)')
     plt.xlabel('State')
     plt.ylabel('Total Allocation')
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=90)
     plt.yticks(fontsize=6)
     sns.despine()
     st.pyplot(plt)
@@ -175,7 +175,7 @@ if selected == "Dynamic":
     plt.xlabel('Date')
     plt.ylabel('Monthly Allocation')
     plt.legend()
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=90)
     st.pyplot(plt)
 
     st.subheader('')
@@ -214,24 +214,7 @@ if selected == "Dynamic":
     
     """)
 
-    # # Pivot table to sum allocations by region for each month
-    # pivot_table_sum = pd.pivot_table(
-    #     df_melted,
-    #     values='Allocation',
-    #     index=df_melted['Date'].dt.strftime('%b'),
-    #     columns='Region',
-    #     aggfunc='sum'
-    # )
-
-    # # Pivot table to calculate average allocations by region for each month
-    # pivot_table_avg = pd.pivot_table(
-    #     df_melted,
-    #     values='Allocation',
-    #     index=df_melted['Date'].dt.strftime('%b'),
-    #     columns='Region',
-    #     aggfunc='mean'
-    # )
-
+# this portion is supposedly for pivot_table_mean and sum
 
 
     
@@ -408,7 +391,7 @@ ax.set_xlabel('Year' if start_year != end_year else 'Month')
 ax.set_ylabel('Total Allocation')
 ax.legend()
 ax.grid(True)
-plt.xticks(rotation=45)
+plt.xticks(rotation=90)
 
 st.pyplot(fig)
 
@@ -516,7 +499,7 @@ ax.set_xlabel('Year' if start_year != end_year else 'Month')
 ax.set_ylabel('Total Allocation')
 ax.legend()
 ax.grid(True)
-plt.xticks(rotation=45)
+plt.xticks(rotation=90)
 
 # Display the plot
 st.pyplot(fig)
@@ -614,7 +597,7 @@ ax.set_xlabel('Year' if start_year != end_year else 'Month')
 ax.set_ylabel('Total Allocation')
 ax.legend()
 ax.grid(True)
-plt.xticks(rotation=45)
+plt.xticks(rotation=90)
 
 # Display the plot
 st.pyplot(fig)
@@ -675,7 +658,7 @@ ax.set_xlabel('Year' if start_year != end_year else 'Month')
 ax.set_ylabel('Total Allocation')
 ax.legend()
 ax.grid(True)
-plt.xticks(rotation=45)
+plt.xticks(rotation=90)
 
 # Display the plot
 st.pyplot(fig)
