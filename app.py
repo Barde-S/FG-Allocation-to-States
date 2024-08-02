@@ -164,6 +164,21 @@ if selected == "Static":
     aggfunc='sum'
 )
 
+    selected_states = ['Bayelsa', 'Lagos', 'Akwa Ibom', 'Kano', 'Rivers', 'Delta', 'Ondo']
+
+    # Plotting the monthly allocations trend for selected states
+    # plt.figure()
+    for state in selected_states:
+        dates = df.columns[2:-1]  # Start from index 2 to exclude 'State' and 'Region'
+        dates = pd.to_datetime(dates, format='%b-%Y')
+        allocations = df.set_index('State').loc[state, dates]
+        plt.plot(dates, allocations, label=state)
+        plt.title('Allocations Trend (2007-2024) For States with The Most Share of Allocation')
+        plt.xlabel('Date')
+        plt.ylabel('Monthly Allocation')
+        plt.legend()
+        plt.xticks(rotation=90)
+        st.pyplot(plt)
 
 
 
@@ -179,40 +194,26 @@ if selected == "Dynamic":
 
     # Plotting the total allocations by state
   #  plt.figure()
-    sns.set_style("whitegrid")
-    palette = sns.color_palette("viridis", len(total_allocations_by_state))
-    sns.barplot(
-        x=total_allocations_by_state.index,
-        y=total_allocations_by_state.values,
-        palette=palette
-    )
-    plt.title('Total Allocations by State (2007-2024)')
-    plt.xlabel('State')
-    plt.ylabel('Total Allocation')
-    plt.xticks(rotation=90)
-    plt.yticks(fontsize=6)
-    sns.despine()
-    st.pyplot(plt)
+    # sns.set_style("whitegrid")
+    # palette = sns.color_palette("viridis", len(total_allocations_by_state))
+    # sns.barplot(
+    #     x=total_allocations_by_state.index,
+    #     y=total_allocations_by_state.values,
+    #     palette=palette
+    # )
+    # plt.title('Total Allocations by State (2007-2024)')
+    # plt.xlabel('State')
+    # plt.ylabel('Total Allocation')
+    # plt.xticks(rotation=90)
+    # plt.yticks(fontsize=6)
+    # sns.despine()
+    # st.pyplot(plt)
 
     st.subheader('')
     st.write("""
     """)
 
-    # selected_states = ['Bayelsa', 'Lagos', 'Akwa Ibom', 'Kano', 'Rivers', 'Delta', 'Ondo']
 
-    # # Plotting the monthly allocations trend for selected states
-    # # plt.figure()
-    # for state in selected_states:
-    #     dates = df.columns[2:-1]  # Start from index 2 to exclude 'State' and 'Region'
-    #     dates = pd.to_datetime(dates, format='%b-%Y')
-    #     allocations = df.set_index('State').loc[state, dates]
-    #     plt.plot(dates, allocations, label=state)
-    # plt.title('Allocations Trend (2007-2024) For States with The Most Share of Allocation')
-    # plt.xlabel('Date')
-    # plt.ylabel('Monthly Allocation')
-    # plt.legend()
-    # plt.xticks(rotation=90)
-    # st.pyplot(plt)
 
     st.subheader('')
     st.write("""
@@ -230,12 +231,12 @@ if selected == "Dynamic":
     # plt.figure()
     for region in monthly_avg_pivot.columns:
         plt.plot(monthly_avg_pivot.index, monthly_avg_pivot[region], marker='o', label=region)
-    plt.title('Monthly Average Allocations by Region')
-    plt.xlabel('Month')
-    plt.ylabel('Average Allocation')
-    plt.legend()
-    plt.grid(True)
-    st.pyplot(plt)
+        plt.title('Monthly Average Allocations by Region')
+        plt.xlabel('Month')
+        plt.ylabel('Average Allocation')
+        plt.legend()
+        plt.grid(True)
+        st.pyplot(plt)
 
     st.subheader('Inflation Trends')
     st.write("""
@@ -299,23 +300,23 @@ if selected == "Dynamic":
    # plt.figure()
     for region in pivot_table_sum_transposed.columns:
         plt.plot(pivot_table_sum_transposed[region], label=region)
-    plt.title('Sum Allocations Time Series by Region')
-    plt.xlabel('Date')
-    plt.ylabel('Sum Allocation')
-    plt.legend()
-    plt.grid(True)
-    st.pyplot(plt)
+        plt.title('Sum Allocations Time Series by Region')
+        plt.xlabel('Date')
+        plt.ylabel('Sum Allocation')
+        plt.legend()
+        plt.grid(True)
+        st.pyplot(plt)
 
     # Plotting average allocations time series for each region
     # plt.figure()
     for region in pivot_table_avg_transposed.columns:
         plt.plot(pivot_table_avg_transposed[region], label=region)
-    plt.title('Average Allocations Time Series by Region')
-    plt.xlabel('Date')
-    plt.ylabel('Average Allocation')
-    plt.legend()
-    plt.grid(True)
-    st.pyplot(plt)
+        plt.title('Average Allocations Time Series by Region')
+        plt.xlabel('Date')
+        plt.ylabel('Average Allocation')
+        plt.legend()
+        plt.grid(True)
+        st.pyplot(plt)
 
     
 
