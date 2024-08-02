@@ -209,21 +209,49 @@ if selected == "Dynamic":
     
     """)
 
-    # Pivot table to sum allocations by region for each month
+    # # Pivot table to sum allocations by region for each month
+    # pivot_table_sum = pd.pivot_table(
+    #     df,
+    #     values=df.columns[1:-1],  # All date columns
+    #     index='Region',
+    #     aggfunc='sum'
+    # )
+
+    # # Pivot table to calculate average allocations by region for each month
+    # pivot_table_avg = pd.pivot_table(
+    #     df,
+    #     values=df.columns[1:-1],  # All date columns
+    #     index='Region',
+    #     aggfunc='mean'
+    # )
+
+
+    date_columns = df.columns[1:-1]  # Adjust this if your date columns are not in this range
+    for col in date_columns:
+        df[col] = pd.to_datetime(df[col], errors='coerce')  # Convert to datetime
+
+    # Drop rows where date conversion failed (if any)
+    # df.dropna(subset=date_columns, inplace=True)
+
+# Pivot table to sum allocations by region for each month
     pivot_table_sum = pd.pivot_table(
         df,
-        values=df.columns[1:-1],  # All date columns
+        values=date_columns,  # All date columns
         index='Region',
         aggfunc='sum'
-    )
+)
 
-    # Pivot table to calculate average allocations by region for each month
+# Pivot table to calculate average allocations by region for each month
     pivot_table_avg = pd.pivot_table(
         df,
-        values=df.columns[1:-1],  # All date columns
+        values=date_columns,  # All date columns
         index='Region',
         aggfunc='mean'
-    )
+)
+
+
+
+    
 
     # Transpose the pivot tables
     pivot_table_sum_transposed = pivot_table_sum.transpose()
