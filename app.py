@@ -119,13 +119,18 @@ pivot_table_avg = pd.pivot_table(
     aggfunc='mean'
 )
 
-# Streamlit app structure
-# with st.sidebar:
-#     selected = option_menu(
-#         menu_title="Explore",
-#         options=["Univariate", "Multivariate"],
-#         menu_icon="cast2"
-#     )
+
+pivot_table_sum = pd.pivot_table(
+    df_melted,
+    values='Allocation',
+    index=df_melted['Date'].dt.strftime('%b-%Y'),
+    columns='Region',
+    aggfunc='sum'
+)
+
+
+
+
 
 if selected == "Dynamic":
     st.header("FAAC Allocation")
@@ -226,30 +231,6 @@ if selected == "Dynamic":
     #     columns='Region',
     #     aggfunc='mean'
     # )
-
-
-#     date_columns = df.columns[1:-1]  # Adjust this if your date columns are not in this range
-#     for col in date_columns:
-#         df[col] = pd.to_datetime(df[col], errors='coerce')  # Convert to datetime
-
-#     # Drop rows where date conversion failed (if any)
-#     # df.dropna(subset=date_columns, inplace=True)
-
-# # Pivot table to sum allocations by region for each month
-#     pivot_table_sum = pd.pivot_table(
-#         df,
-#         values=date_columns,  # All date columns
-#         index='Region',
-#         aggfunc='sum'
-# )
-
-# # Pivot table to calculate average allocations by region for each month
-#     pivot_table_avg = pd.pivot_table(
-#         df,
-#         values=date_columns,  # All date columns
-#         index='Region',
-#         aggfunc='mean'
-# )
 
 
 
