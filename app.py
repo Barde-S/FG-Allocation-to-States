@@ -26,6 +26,9 @@ for col in lgas[2:]:
         lgas[col] = pd.to_numeric(lgas[col], errors='coerce')
         lgas[col].fillna(np.mean(lgas[col]), inplace=True)
 
+ for col in df.columns[1:]:
+    df[col] = pd.to_numeric(df[col], errors='coerce')
+
 
 lgas['STATE'] = lgas.STATE.str.capitalize()
 
@@ -93,8 +96,7 @@ if selected == "Univariate":
     plt.show()
 
 
-    for col in df.columns[1:]:
-        df[col] = pd.to_numeric(df[col], errors='coerce')
+   # this position is for the cut piece of code
     
     
     regions = {
