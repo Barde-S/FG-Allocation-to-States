@@ -442,7 +442,7 @@ if selected == "Dynamic":
             (allocations_by_year['Year'] <= end_year)
     ]
 
-        if plot_type == "Total Sum":
+        if plot_type == "Total Sum":    
         # Create yearly line plot for total sum
             summed_data_a = filtered_data_a.groupby('Year')['Allocation'].sum().reset_index()
             fig, ax = plt.subplots()
@@ -519,8 +519,7 @@ if selected == "Dynamic":
             (allocations_by_year['Year'] == start_year)
     ]
 
-        if plot_type == "Total Sum":
-        # Create monthly line plot for total sum
+        if plot_type == "Total Sum": # Create monthly line plot for total sum
             summed_data_a = filtered_data_a.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0)
             summed_data_b = filtered_data_b.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0)
             fig, ax = plt.subplots()
