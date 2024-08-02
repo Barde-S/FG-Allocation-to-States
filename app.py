@@ -541,7 +541,7 @@ ax.set_ylabel('Average GDP Growth Rate (%)')
 st.pyplot(fig)
 
 
-   st.write("""
+st.write("""
 This bar plot shows the average GDP growth rate by regime type in Nigeria from 1960 to 1978. 
 It compares the GDP growth under different regimes (e.g., Military and Civilian) during this period.
 """)
