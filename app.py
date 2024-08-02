@@ -172,20 +172,20 @@ if selected == "Dynamic":
     # Define the correct order for months
     month_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     # Convert index to categorical with specified order
-    pivot_table_avg.index = pd.Categorical(pivot_table_avg.index, categories=month_order, ordered=True)
-    monthly_avg_pivot = pivot_table_avg.sort_index()
+     pivot_table_avg.index = pd.Categorical(pivot_table_avg.index, categories=month_order, ordered=True)
+     monthly_avg_pivot = pivot_table_avg.sort_index()
     # Plot monthly average allocations by region
     # plt.figure()
-    for region in monthly_avg_pivot.columns:
-        plt.plot(monthly_avg_pivot.index, monthly_avg_pivot[region], marker='o', label=region)
-    plt.title('Monthly Average Allocations by Region')
-    plt.xlabel('Month')
-    plt.ylabel('Average Allocation')
-    plt.legend()
-    plt.grid(True)
-    st.pyplot(plt)
-    st.subheader('Inflation Trends')
-    st.write("""
+     for region in monthly_avg_pivot.columns:
+         plt.plot(monthly_avg_pivot.index, monthly_avg_pivot[region], marker='o', label=region)
+     plt.title('Monthly Average Allocations by Region')
+     plt.xlabel('Month')
+     plt.ylabel('Average Allocation')
+     plt.legend()
+     plt.grid(True)
+     st.pyplot(plt)
+     st.subheader('Inflation Trends')
+     st.write("""
     
     """)
 # this portion is supposedly for pivot_table_mean and sum
@@ -203,11 +203,11 @@ if selected == "Dynamic":
     df_melted.dropna(subset=['Date'], inplace=True)
 # Create a pivot table to calculate average allocations by region for each month
     pivot_table_avg = pd.pivot_table(
-    df_melted,
-    values='Allocation',
-    index=df_melted['Date'].dt.strftime('%b-%Y'),
-    columns='Region',
-    aggfunc='mean'
+        df_melted,
+        values='Allocation',
+        index=df_melted['Date'].dt.strftime('%b-%Y'),
+        columns='Region',
+        aggfunc='mean'
 )
     pivot_table_sum = pd.pivot_table(
     df_melted,
