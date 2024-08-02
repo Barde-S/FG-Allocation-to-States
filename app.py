@@ -568,7 +568,7 @@ df_melted['Month'] = df_melted['Date'].dt.strftime('%Y-%m')
 allocations_by_year = df_melted
 
 # Get unique states and years from the DataFrame
-unique_states = [lgc.upper() for lgc in allocations_by_year['LGC'].unique()]
+unique_states = [lgc for lgc in allocations_by_year['LGC'].unique()]
 unique_years = allocations_by_year['Year'].unique()
 
 # Streamlit App
