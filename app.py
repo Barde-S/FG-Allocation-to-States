@@ -46,11 +46,11 @@ lgas.head()
 with st.sidebar:
     selected = option_menu(
         menu_title="Explore",
-        options=["Univariate", "Multivariate"],
+        options=["Static", "Dynamic"],
         menu_icon="cast"
     )
 
-if selected == "Univariate":
+if selected == "Static":
     st.header("Exploratory Data Analysis")
     st.subheader('GDP Insights')
     st.write("""
@@ -122,14 +122,14 @@ pivot_table_avg = pd.pivot_table(
 )
 
 # Streamlit app structure
-with st.sidebar:
-    selected = option_menu(
-        menu_title="Explore",
-        options=["Univariate", "Multivariate"],
-        menu_icon="cast2"
-    )
+# with st.sidebar:
+#     selected = option_menu(
+#         menu_title="Explore",
+#         options=["Univariate", "Multivariate"],
+#         menu_icon="cast2"
+#     )
 
-if selected == "Univariate":
+if selected == "Dynamic":
     st.header("Exploratory Data Analysis")
     st.subheader('GDP Insights')
     st.write("""
