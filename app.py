@@ -26,7 +26,8 @@ for col in lgas[2:]:
         lgas[col] = pd.to_numeric(lgas[col], errors='coerce')
         lgas[col].fillna(np.mean(lgas[col]), inplace=True)
 
- for col in df.columns[1:]:
+
+for col in df.columns[1:]:
     df[col] = pd.to_numeric(df[col], errors='coerce')
 
 
