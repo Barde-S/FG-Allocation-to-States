@@ -94,7 +94,7 @@ if selected == "Univariate":
 
 
     for col in df.columns[1:]:
-            df[col] = pd.to_numeric(df[col], errors='coerce')
+        df[col] = pd.to_numeric(df[col], errors='coerce')
     
     
     regions = {
