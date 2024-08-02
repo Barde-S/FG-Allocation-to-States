@@ -6,6 +6,18 @@ import plotly.express as px
 from streamlit_option_menu import option_menu
 import numpy as np
 
+
+regions = {
+    'North Central': ['Benue', 'Kogi', 'Kwara', 'Nasarawa', 'Niger', 'Plateau', 'Federal Capital Territory'],
+    'North East': ['Adamawa', 'Bauchi', 'Borno', 'Gombe', 'Taraba', 'Yobe'],
+    'North West': ['Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Sokoto', 'Zamfara'],
+    'South East': ['Abia', 'Anambra', 'Ebonyi', 'Enugu', 'Imo'],
+    'South South': ['Akwa Ibom', 'Bayelsa', 'Cross River', 'Delta', 'Edo', 'Rivers'],
+    'South West': ['Ekiti', 'Lagos', 'Ogun', 'Ondo', 'Osun', 'Oyo']
+}
+
+
+
 # Load data
 df = pd.read_excel('FAAC DATA - Data Community.xlsx', sheet_name='State')
 df = df.iloc[:, :-7]
@@ -58,17 +70,6 @@ pivot_table_sum = pd.pivot_table(
 )
 
 
-
-
-
-regions = {
-    'North Central': ['Benue', 'Kogi', 'Kwara', 'Nasarawa', 'Niger', 'Plateau', 'Federal Capital Territory'],
-    'North East': ['Adamawa', 'Bauchi', 'Borno', 'Gombe', 'Taraba', 'Yobe'],
-    'North West': ['Jigawa', 'Kaduna', 'Kano', 'Katsina', 'Kebbi', 'Sokoto', 'Zamfara'],
-    'South East': ['Abia', 'Anambra', 'Ebonyi', 'Enugu', 'Imo'],
-    'South South': ['Akwa Ibom', 'Bayelsa', 'Cross River', 'Delta', 'Edo', 'Rivers'],
-    'South West': ['Ekiti', 'Lagos', 'Ogun', 'Ondo', 'Osun', 'Oyo']
-}
 
 # Reverse mapping for convenience
 state_to_region = {STATE: region for region, states in regions.items() for STATE in states}
