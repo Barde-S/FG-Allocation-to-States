@@ -209,23 +209,23 @@ if selected == "Dynamic":
     
     """)
 
-    # Pivot table to sum allocations by region for each month
-    pivot_table_sum = pd.pivot_table(
-        df_melted,
-        values='Allocation',
-        index=df_melted['Date'].dt.strftime('%b'),
-        columns='Region',
-        aggfunc='sum'
-    )
+    # # Pivot table to sum allocations by region for each month
+    # pivot_table_sum = pd.pivot_table(
+    #     df_melted,
+    #     values='Allocation',
+    #     index=df_melted['Date'].dt.strftime('%b'),
+    #     columns='Region',
+    #     aggfunc='sum'
+    # )
 
-    # Pivot table to calculate average allocations by region for each month
-    pivot_table_avg = pd.pivot_table(
-        df_melted,
-        values='Allocation',
-        index=df_melted['Date'].dt.strftime('%b'),
-        columns='Region',
-        aggfunc='mean'
-    )
+    # # Pivot table to calculate average allocations by region for each month
+    # pivot_table_avg = pd.pivot_table(
+    #     df_melted,
+    #     values='Allocation',
+    #     index=df_melted['Date'].dt.strftime('%b'),
+    #     columns='Region',
+    #     aggfunc='mean'
+    # )
 
 
 #     date_columns = df.columns[1:-1]  # Adjust this if your date columns are not in this range
