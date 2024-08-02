@@ -22,6 +22,12 @@ regions = {
 df = pd.read_excel('FAAC DATA - Data Community.xlsx', sheet_name='State')
 df = df.iloc[:, :-7]
 
+
+
+date_columns = df.columns[1:]  # Adjust this if your date columns are not in this range
+for col in date_columns:
+    df[col] = pd.to_datetime(df[col], format='%Y-%m', errors='coerce')
+
 lgas = pd.read_excel('FAAC DATA - Data Community.xlsx', sheet_name='LGA')
 
 for col in lgas.columns:
