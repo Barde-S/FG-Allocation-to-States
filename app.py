@@ -413,7 +413,7 @@ plt.xticks(rotation=45)
 st.pyplot(fig)
 
 
-  st.write("""
+st.write("""
 From 1960 to 2020, the GDP (constant LCU) shows a strong upward trend, reflecting substantial long-term economic growth. Notable growth began in the 2000s, highlighting significant economic expansion and a positive trajectory.
 """)
 
