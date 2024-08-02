@@ -26,6 +26,41 @@ for col in df.columns[1:]:
 
 lgas['STATE'] = lgas.STATE.str.capitalize()
 
+
+
+# Reverse mapping for convenience
+state_to_region = {state: region for region, states in regions.items() for state in states}
+
+# Add a 'Region' column to the DataFrame
+df['Region'] = df['State'].map(state_to_region)
+
+df_melted = df.melt(id_vars=['State', 'Region'], var_name='Date', value_name='Allocation')
+
+# Convert Date column to datetime format
+df_melted['Date'] = pd.to_datetime(df_melted['Date'], format='%b-%Y')
+
+# Create a pivot table to calculate average allocations by region for each month
+pivot_table_avg = pd.pivot_table(
+    df_melted,
+    values='Allocation',
+    index=df_melted['Date'].dt.strftime('%b-%Y'),
+    columns='Region',
+    aggfunc='mean'
+)
+
+
+pivot_table_sum = pd.pivot_table(
+    df_melted,
+    values='Allocation',
+    index=df_melted['Date'].dt.strftime('%b-%Y'),
+    columns='Region',
+    aggfunc='sum'
+)
+
+
+
+
+
 regions = {
     'North Central': ['Benue', 'Kogi', 'Kwara', 'Nasarawa', 'Niger', 'Plateau', 'Federal Capital Territory'],
     'North East': ['Adamawa', 'Bauchi', 'Borno', 'Gombe', 'Taraba', 'Yobe'],
