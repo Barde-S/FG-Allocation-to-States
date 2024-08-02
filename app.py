@@ -479,7 +479,6 @@ From 1960 to 2020, the GDP (constant LCU) shows a strong upward trend, reflectin
             ax.plot(avg_data_b.index, avg_data_b.values, marker='o', label=f"{state_selected_b} - Average")
             ax.set_title(f'Average Allocations by Month for {state_selected_a} and {state_selected_b} in {start_year}')
     else:
-    # Filter data based on user selection for yearly plot
         filtered_data_a = allocations_by_year[
             (allocations_by_year['State'] == state_selected_a) &
             (allocations_by_year['Year'] >= start_year) &
@@ -499,8 +498,7 @@ From 1960 to 2020, the GDP (constant LCU) shows a strong upward trend, reflectin
             ax.plot(summed_data_a['Year'], summed_data_a['Allocation'], marker='o', label=f"{state_selected_a} - Total Sum")
             ax.plot(summed_data_b['Year'], summed_data_b['Allocation'], marker='o', label=f"{state_selected_b} - Total Sum")
             ax.set_title('Total Allocations by State Over the Years')
-         else:
-        # Create yearly line plot for average
+        else:
             avg_data_a = filtered_data_a.groupby('Year')['Allocation'].mean().reset_index()
             avg_data_b = filtered_data_b.groupby('Year')['Allocation'].mean().reset_index()
             fig, ax = plt.subplots(figsize=(22, 8))
