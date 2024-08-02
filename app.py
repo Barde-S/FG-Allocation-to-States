@@ -219,19 +219,19 @@ if selected == "Dynamic":
     
     """)
 
-    monthly_avg_pivot = pd.pivot_table(
-        df_melted,
-        values='Allocation',
-        index=df_melted['Date'].dt.strftime('%b'),
-        columns='Region',
-        aggfunc='mean'
-    )
+    # monthly_avg_pivot = pd.pivot_table(
+    #     df_melted,
+    #     values='Allocation',
+    #     index=df_melted['Date'].dt.strftime('%b'),
+    #     columns='Region',
+    #     aggfunc='mean'
+    # )
 
     # Define the correct order for months
     month_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
     # Convert index to categorical with specified order
-    monthly_avg_pivot.index = pd.Categorical(monthly_avg_pivot.index, categories=month_order, ordered=True)
+    pivot_table_avg.index = pd.Categorical(monthly_avg_pivot.index, categories=month_order, ordered=True)
     monthly_avg_pivot = monthly_avg_pivot.sort_index()
 
     # Plot monthly average allocations by region
