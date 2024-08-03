@@ -214,8 +214,8 @@ if selected == "Static":
 
     for region in pivot_table_avg_transposed.columns:
         fig_avg.add_trace(go.Scatter(
-        y=pivot_table_avg_transposed.index,
-        x=pivot_table_avg_transposed[region],
+        x=pivot_table_avg_transposed.index,
+        y=pivot_table_avg_transposed[region],
         mode='lines',
         name=region
     ))
