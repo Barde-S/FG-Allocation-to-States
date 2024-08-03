@@ -303,8 +303,8 @@ if selected == "Static":
 
     # Convert the Series to a DataFrame for easier plotting with Plotly
     total_allocations_by_state_df = total_allocations_by_state.reset_index()
-    total_allocations_by_state_df.columns = ['STATE_LGC', 'Total Allocation']
-    total_allocations_by_state_df['y'] =  total_allocations_by_state_df['Total Allocation']/1000
+    total_allocations_by_state_df.columns = ['LGC', 'Total Allocation']
+    total_allocations_by_state_df['y'] =  ((total_allocations_by_state_df['Total Allocation'])/1000)
 
     
     # Create the bar chart using Plotly
@@ -313,7 +313,7 @@ if selected == "Static":
     x='STATE_LGC',
     y='y',
     title='Top Ten (10) LGC with Most Total Allocations',
-    labels={'STATE_LGC': 'LGC', 'Total Allocation': total_allocations_by_state_df['Total Allocation']*100}
+    labels={'LGC': 'LGC', 'Total Allocation': 'Total Allocation'}
         )
 
     # Customize the layout for better display
