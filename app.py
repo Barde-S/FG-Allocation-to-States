@@ -332,30 +332,42 @@ if selected == "Static":
     melted = lgas.melt(id_vars=['LGC', 'Region'], var_name='Date', value_name='Allocation')
 
 # Convert Date column to datetime format
-    melted['Date'] = pd.to_datetime(df_melted['Date'], format='%b-%Y', errors='coerce')
+    melted['Date'] = pd.to_datetime(melted['Date'], format='%b-%Y', errors='coerce')
 
 # Drop rows with invalid dates
     melted.dropna(subset=['Date'], inplace=True)
 
-# Create a pivot table to calculate average allocations by LGC for each month
+# Ensure that 'Allocation' column contains numeric values
+    melted['Allocation'] = pd.to_numeric(melted['Allocation'], errors='coerce')
+
+# Drop rows with invalid allocation values
+    melted.dropna(subset=['Allocation'], inplace=True)
+
+# Create a pivot table to calculate sum allocations by LGC for each year
     pivot_table_sum = pd.pivot_table(
     melted,
     values='Allocation',
     index=melted['Date'].dt.year,
     columns='LGC',
-    aggfunc='sum')
-    
+    aggfunc='sum'
+)
 
-    # Create the bar chart using Plotly
+# Find the top 10 LGCs by total allocation
+    top_10_lgcs = melted.groupby('LGC')['Allocation'].sum().sort_values(ascending=False).head(10).index
+
+# Filter the melted DataFrame to include only the top 10 LGCs
+    top_10_melted = melted[melted['LGC'].isin(top_10_lgcs)]
+
+# Create the bar chart using Plotly
     fig = px.bar(
-    melted.sort_values(by='Allocation', ascending=False).head(10),
+    top_10_melted.sort_values(by='Allocation', ascending=False).head(10),
     x='LGC',
     y='Allocation',
     title='Top Ten (10) LGC with Most Total Allocations',
     labels={'LGC': 'LGC', 'Total Allocation': 'Allocation'}
-        )
+)
 
-    # Customize the layout for better display
+# Customize the layout for better display
     fig.update_layout(
     xaxis_title='LGC',
     yaxis_title='Total Allocation',
@@ -363,7 +375,7 @@ if selected == "Static":
     template='plotly_white'
 )
 
-    # Display the plot in Streamlit
+# Display the plot in Streamlit
     st.plotly_chart(fig)
 
 
