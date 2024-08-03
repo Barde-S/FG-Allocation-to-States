@@ -350,7 +350,7 @@ if selected == "Static":
     fig = px.bar(
     melted,
     x='LGC',
-    y='Total Allocation',
+    y='Allocation',
     title='Top Ten (10) LGC with Most Total Allocations',
     labels={'LGC': 'LGC', 'Total Allocation': 'Total Allocation'}
         )
