@@ -62,7 +62,6 @@ with st.sidebar:
         menu_icon="cast"
     )
 if selected == "Static":
-    (
     st.header("FAAC Allocation")
     st.subheader('')
     st.write("""
@@ -126,7 +125,6 @@ if selected == "Static":
     columns='Region',
     aggfunc='sum'
     )
-    )
 if selected == "Dynamic":
     st.header("FAAC Allocation")
     st.subheader('')
@@ -136,20 +134,20 @@ if selected == "Dynamic":
     total_allocations_by_state = numeric_columns.set_index(df['State']).sum(axis=1).sort_values(ascending=False)
     # Plotting the total allocations by state
   #  plt.figure()
-    sns.set_style("whitegrid")
-    palette = sns.color_palette("viridis", len(total_allocations_by_state))
-    sns.barplot(
-        x=total_allocations_by_state.index,
-        y=total_allocations_by_state.values,
-        palette=palette
-    )
-    plt.title('Total Allocations by State (2007-2024)')
-    plt.xlabel('State')
-    plt.ylabel('Total Allocation')
-    plt.xticks(rotation=90)
-    plt.yticks(fontsize=6)
-    sns.despine()
-    st.pyplot(plt)
+    # sns.set_style("whitegrid")
+    # palette = sns.color_palette("viridis", len(total_allocations_by_state))
+    # sns.barplot(
+    #     x=total_allocations_by_state.index,
+    #     y=total_allocations_by_state.values,
+    #     palette=palette
+    # )
+    # plt.title('Total Allocations by State (2007-2024)')
+    # plt.xlabel('State')
+    # plt.ylabel('Total Allocation')
+    # plt.xticks(rotation=90)
+    # plt.yticks(fontsize=6)
+    # sns.despine()
+    # st.pyplot(plt)
     st.subheader('')
     st.write("""
     """)
