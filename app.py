@@ -348,7 +348,7 @@ if selected == "Static":
 
     # Create the bar chart using Plotly
     fig = px.bar(
-    melted.sort_vaalues(ascending=False).head(10),
+    melted.sort_values(ascending=False).head(10),
     x='LGC',
     y='Total Allocation',
     title='Top Ten (10) LGC with Most Total Allocations',
