@@ -200,7 +200,7 @@ if selected == "Static":
 
 
     for region in pivot_table_avg_transposed.columns:
-        sns.lineplot(pivot_table_avg_transposed[region],
+        plt.plot(pivot_table_avg_transposed[region],
             label=region
       #  data=pivot_table_avg_transposed,
         
