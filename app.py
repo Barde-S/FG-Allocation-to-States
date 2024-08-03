@@ -146,76 +146,103 @@ if selected == "Static":
 
 
 
+# Melt the DataFrame to long format for easier manipulation
     df_melted = df.melt(id_vars=['State', 'Region'], var_name='Date', value_name='Allocation')
+
 # Convert Date column to datetime format
     df_melted['Date'] = pd.to_datetime(df_melted['Date'], format='%b-%Y', errors='coerce')
+
 # Drop rows with invalid dates
     df_melted.dropna(subset=['Date'], inplace=True)
+
 # Create a pivot table to calculate average allocations by region for each month
     pivot_table_avg = pd.pivot_table(
-        df_melted,
-        values='Allocation',
-        index=df_melted['Date'].dt.strftime('%b-%Y'),
-        columns='Region',
-        aggfunc='mean'
-    )
+    df_melted,
+    values='Allocation',
+    index=df_melted['Date'].dt.strftime('%b-%Y'),
+    columns='Region',
+    aggfunc='mean'
+)
+
     pivot_table_sum = pd.pivot_table(
     df_melted,
     values='Allocation',
     index=df_melted['Date'].dt.strftime('%b-%Y'),
     columns='Region',
     aggfunc='sum'
-    )
-# Transpose the pivot tables
-    pivot_table_sum_transposed = pivot_table_sum.transpose()
-    pivot_table_avg_transposed = pivot_table_avg.transpose()
+)
+
 # Ensure the transposed pivot tables are properly indexed for plotting
-    pivot_table_sum_transposed = pivot_table_sum_transposed.T
-    pivot_table_avg_transposed = pivot_table_avg_transposed.T
-    
-    
-    # Plotting sum allocations time series for each region
-   # plt.figure()
+    pivot_table_sum_transposed = pivot_table_sum.T
+    pivot_table_avg_transposed = pivot_table_avg.T
+
+# Plotting sum allocations time series for each region using Plotly
+    fig_sum = go.Figure()
+
     for region in pivot_table_sum_transposed.columns:
-        plt.plot(pivot_table_sum_transposed[region], label=region)
-    plt.title('Sum Allocations Time Series by Region')
-    plt.xlabel('Date')
-    plt.ylabel('Sum Allocation')
-    plt.legend()
-    plt.grid(True)
-    st.pyplot(plt)
-    # Plotting average allocations time series for each region
-    # plt.figure()
+        fig_sum.add_trace(go.Scatter(
+            x=pivot_table_sum_transposed.index,
+            y=pivot_table_sum_transposed[region],
+            mode='lines',
+            name=region
+    ))
+
+    fig_sum.update_layout(
+    title='Sum Allocations Time Series by Region',
+    xaxis_title='Date',
+    yaxis_title='Sum Allocation',
+    legend_title='Region',
+    template='plotly_white'
+)
+
+    st.plotly_chart(fig_sum)
+
+# Plotting average allocations time series for each region using Plotly
+    fig_avg = go.Figure()
+
     for region in pivot_table_avg_transposed.columns:
-        plt.plot(pivot_table_avg_transposed[region], label=region)
-    plt.title('Average Allocations Time Series by Region')
-    plt.xlabel('Date')
-    plt.ylabel('Average Allocation')
-    plt.legend()
-    plt.grid(True)
-    st.pyplot(plt)
-    
-   # Melt the DataFrame to long format for easier manipulation
-    df_melted = df.melt(id_vars=['State', 'Region'], var_name='Date', value_name='Allocation')
-# Convert Date column to datetime format
-    df_melted['Date'] = pd.to_datetime(df_melted['Date'], format='%b-%Y')
+        fig_avg.add_trace(go.Scatter(
+        x=pivot_table_avg_transposed.index,
+        y=pivot_table_avg_transposed[region],
+        mode='lines',
+        name=region
+    ))
+
+    fig_avg.update_layout(
+    title='Average Allocations Time Series by Region',
+    xaxis_title='Date',
+    yaxis_title='Average Allocation',
+    legend_title='Region',
+    template='plotly_white'
+)
+
+    st.plotly_chart(fig_avg)
+
+# Financial and Monetary Indicators
     st.subheader('Financial and Monetary Indicators')
     st.write("""
-    """)
+""")
+
 # Group by region and sum allocations
     region_totals = df_melted.groupby('Region')['Allocation'].sum().reset_index()
+
 # Create a pie chart using Plotly
     fig1 = px.pie(region_totals, values='Allocation', names='Region',
               title='Total Allocations Share by Region')
+
 # Display the pie chart
     st.plotly_chart(fig1)
+
     st.subheader('Credit to Private Sector')
     st.write("""
-    """)
+""")
+
 # Find the top states by region
     top_states_by_region = df_melted.loc[df_melted.groupby('Region')['Allocation'].idxmax()]
+
 # Sort the result by Allocation
     top_states_by_region = top_states_by_region.sort_values(by='Allocation', ascending=False)
+
 # Create the bar plot using Plotly
     fig2 = px.bar(
     top_states_by_region,
@@ -226,7 +253,8 @@ if selected == "Static":
     title='Top States with Most Allocation from Each Region',
     template='plotly_white',
     color_discrete_sequence=px.colors.qualitative.Plotly
-    )
+)
+
 # Customize the layout for better readability
     fig2.update_layout(
     autosize=False,
@@ -239,9 +267,11 @@ if selected == "Static":
     xaxis=dict(tickfont=dict(size=12)),
     yaxis=dict(tickfont=dict(size=12)),
     legend_title_text='Region'
-    )
+)
+
 # Show the bar plot
     st.plotly_chart(fig2)
+
     st.subheader('Download the Entire Report:')
     st.header("Visualizations and Insights")
     st.markdown('<h4><u>GDP Insights</u></h4>', unsafe_allow_html=True)
