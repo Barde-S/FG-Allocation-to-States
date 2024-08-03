@@ -305,12 +305,13 @@ if selected == "Static":
     total_allocations_by_state_df['STATE_LGC'] = total_allocations_by_state_df['STATE'] + ' - ' + total_allocations_by_state_df['LGC']
     total_allocations_by_state_df = total_allocations_by_state_df[['STATE_LGC', 0]]
     total_allocations_by_state_df.columns = ['STATE_LGC', 'Total Allocation']
+    total_allocations_by_state_df['y'] = total_allocations_by_state_df['Total Allocation']/1000
 
 # Create the bar chart using Plotly
     fig = px.bar(
     total_allocations_by_state_df,
     x='STATE_LGC',
-    y=(total_allocations_by_state_df['Total Allocation'])/10000,
+    y='y',
     title='Top Ten (10) LGC with Most Total Allocations',
     labels={'STATE_LGC': 'States and LGC', 'Total Allocation': 'Total Allocation'},
 )
