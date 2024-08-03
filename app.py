@@ -311,7 +311,7 @@ if selected == "Static":
     fig = px.bar(
     total_allocations_by_state_df,
     x='LGC',
-    y='y',
+    y=(total_allocations_by_state_df['y']/1000),
     title='Top Ten (10) LGC with Most Total Allocations',
     labels={'LGC': 'LGC', 'Total Allocation': 'y'}
         )
