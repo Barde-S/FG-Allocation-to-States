@@ -174,8 +174,8 @@ if selected == "Static":
 )
 
 # Ensure the transposed pivot tables are properly indexed for plotting
-    pivot_table_sum_transposed = pivot_table_sum.T
-    pivot_table_avg_transposed = pivot_table_avg.T
+    pivot_table_sum_transposed = pivot_table_sum
+    pivot_table_avg_transposed = pivot_table_avg
 
 
     for region in pivot_table_sum_transposed.columns:
