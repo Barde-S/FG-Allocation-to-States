@@ -305,6 +305,7 @@ if selected == "Static":
     total_allocations_by_state_df = total_allocations_by_state.reset_index()
     total_allocations_by_state_df.columns = ['LGC', 'Total Allocation']
     total_allocations_by_state_df['y'] =  ((total_allocations_by_state_df['Total Allocation'])/1000)
+    (total_allocations_by_state_df.y)/1000
 
     
     # Create the bar chart using Plotly
