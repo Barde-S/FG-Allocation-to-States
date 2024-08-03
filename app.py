@@ -75,7 +75,7 @@ if selected == "Static":
     #sns.set_style("whitegrid")
     
     fig = px.bar(
-    total_allocations_by_state_df,
+    total_allocations_by_state,
     x='State',
     y='Total Allocation',
     color='State',  # Use color differentiation for each bar
