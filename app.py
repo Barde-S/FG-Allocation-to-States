@@ -182,8 +182,8 @@ if selected == "Static":
 
     for region in pivot_table_sum_transposed.columns:
         fig_sum.add_trace(go.Scatter(
-            x=pivot_table_sum_transposed.index,
-            y=pivot_table_sum_transposed[region],
+            y=pivot_table_sum_transposed.index,
+            x=pivot_table_sum_transposed[region],
             mode='lines',
             name=region
     ))
@@ -203,8 +203,8 @@ if selected == "Static":
 
     for region in pivot_table_avg_transposed.columns:
         fig_avg.add_trace(go.Scatter(
-        x=pivot_table_avg_transposed.index,
-        y=pivot_table_avg_transposed[region],
+        y=pivot_table_avg_transposed.index,
+        x=pivot_table_avg_transposed[region],
         mode='lines',
         name=region
     ))
