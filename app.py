@@ -303,9 +303,8 @@ if selected == "Static":
 # Convert the Series to a DataFrame for easier plotting with Plotly
     total_allocations_by_state_df = total_allocations_by_state.reset_index()
     total_allocations_by_state_df['STATE_LGC'] = total_allocations_by_state_df['LGC']
-    total_allocations_by_state_df = total_allocations_by_state_df[['STATE_LGC', 0]]
+    total_allocations_by_state_df = total_allocations_by_state_df[['STATE_LGC']]
     total_allocations_by_state_df.columns = ['STATE_LGC', 'Total Allocation']
-    total_allocations_by_state_df['y'] = total_allocations_by_state_df['Total Allocation']/1000
     total_allocations_by_state_df.columns = ['STATE_LGC', 'Total Allocation']
 
 # Create the bar chart using Plotly
