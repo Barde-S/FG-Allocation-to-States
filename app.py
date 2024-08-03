@@ -62,6 +62,7 @@ with st.sidebar:
         menu_icon="cast"
     )
 if selected == "Static":
+    (
     st.header("FAAC Allocation")
     st.subheader('')
     st.write("""
@@ -102,7 +103,7 @@ if selected == "Static":
               'South East': ['Abia', 'Anambra', 'Ebonyi', 'Enugu', 'Imo'],
               'South South': ['Akwa Ibom', 'Bayelsa', 'Cross River', 'Delta', 'Edo', 'Rivers'],
               'South West': ['Ekiti', 'Lagos', 'Ogun', 'Ondo', 'Osun', 'Oyo']
-}
+    }
     # Reverse mapping for convenience
     state_to_region = {state: region for region, states in regions.items() for state in states}
     # Add a 'Region' column to the DataFrame
@@ -117,14 +118,15 @@ if selected == "Static":
         index=df_melted['Date'].dt.strftime('%b-%Y'),
         columns='Region',
         aggfunc='mean'
-)
+    )
     pivot_table_sum = pd.pivot_table(
     df_melted,
     values='Allocation',
     index=df_melted['Date'].dt.strftime('%b-%Y'),
     columns='Region',
     aggfunc='sum'
-)
+    )
+    )
 if selected == "Dynamic":
     st.header("FAAC Allocation")
     st.subheader('')
@@ -208,14 +210,14 @@ if selected == "Dynamic":
         index=df_melted['Date'].dt.strftime('%b-%Y'),
         columns='Region',
         aggfunc='mean'
-)
+    )
     pivot_table_sum = pd.pivot_table(
     df_melted,
     values='Allocation',
     index=df_melted['Date'].dt.strftime('%b-%Y'),
     columns='Region',
     aggfunc='sum'
-)
+    )
 # Transpose the pivot tables
     pivot_table_sum_transposed = pivot_table_sum.transpose()
     pivot_table_avg_transposed = pivot_table_avg.transpose()
@@ -251,7 +253,7 @@ if selected == "Dynamic":
     df_melted['Date'] = pd.to_datetime(df_melted['Date'], format='%b-%Y')
     st.subheader('Financial and Monetary Indicators')
     st.write("""
-""")
+    """)
 # Group by region and sum allocations
     region_totals = df_melted.groupby('Region')['Allocation'].sum().reset_index()
 # Create a pie chart using Plotly
@@ -261,7 +263,7 @@ if selected == "Dynamic":
     st.plotly_chart(fig1)
     st.subheader('Credit to Private Sector')
     st.write("""
-""")
+    """)
 # Find the top states by region
     top_states_by_region = df_melted.loc[df_melted.groupby('Region')['Allocation'].idxmax()]
 # Sort the result by Allocation
@@ -276,7 +278,7 @@ if selected == "Dynamic":
     title='Top States with Most Allocation from Each Region',
     template='plotly_white',
     color_discrete_sequence=px.colors.qualitative.Plotly
-)
+    )
 # Customize the layout for better readability
     fig2.update_layout(
     autosize=False,
@@ -289,7 +291,7 @@ if selected == "Dynamic":
     xaxis=dict(tickfont=dict(size=12)),
     yaxis=dict(tickfont=dict(size=12)),
     legend_title_text='Region'
-)
+    )
 # Show the bar plot
     st.plotly_chart(fig2)
     st.subheader('Download the Entire Report:')
