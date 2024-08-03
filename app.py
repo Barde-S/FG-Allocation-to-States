@@ -299,13 +299,13 @@ if selected == "Static":
     
 
     # Calculate the total allocations by LGC, excluding the 'Region' column
-    total_allocations_by_state = lgas.set_index(['LGC']).drop('Region', axis=1).apply(pd.to_numeric, errors='coerce').sum(axis=1).sort_values(ascending=False).head(10)
+    # total_allocations_by_state = lgas.set_index(['LGC']).drop('Region', axis=1).apply(pd.to_numeric, errors='coerce').sum(axis=1).sort_values(ascending=False).head(10)
 
-    # Convert the Series to a DataFrame for easier plotting with Plotly
-    total_allocations_by_state_df = total_allocations_by_state.reset_index()
-    # total_allocations_by_state_df.columns = ['LGC', 'Total Allocation']
-    total_allocations_by_state_df['y'] =  ((total_allocations_by_state_df['Total Allocation'])/1000)
-    # (total_allocations_by_state_df.y)/1000
+    # # Convert the Series to a DataFrame for easier plotting with Plotly
+    # total_allocations_by_state_df = total_allocations_by_state.reset_index()
+    # # total_allocations_by_state_df.columns = ['LGC', 'Total Allocation']
+    # total_allocations_by_state_df['y'] =  ((total_allocations_by_state_df['Total Allocation'])/1000)
+    # # (total_allocations_by_state_df.y)/1000
 
     
 #     # Create the bar chart using Plotly
