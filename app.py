@@ -310,7 +310,7 @@ if selected == "Static":
     # Create the bar chart using Plotly
     fig = px.bar(
     total_allocations_by_state_df,
-    x='STATE_LGC',
+    x='LGC',
     y='y',
     title='Top Ten (10) LGC with Most Total Allocations',
     labels={'LGC': 'LGC', 'Total Allocation': 'Total Allocation'}
