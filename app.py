@@ -195,7 +195,7 @@ if selected == "Static":
 
 
     
-fig_avg = go.Figure()
+    fig_avg = go.Figure()
 
     for region in pivot_table_sum_transposed.columns:
         fig_avg.add_trace(go.Scatter(
