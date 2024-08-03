@@ -326,14 +326,14 @@ if selected == "Static":
     total_allocations_by_state = lgas.set_index(['STATE', 'LGC']).drop('Region', axis=1).apply(pd.to_numeric, errors='coerce').sum(axis=1).sort_values(ascending=False).head(10)
 
 # Create the bar plot
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(10, 6))  # Adjust the size as needed
     total_allocations_by_state.plot(kind='bar', ax=ax)
     ax.set_title('Top Ten (10) LGC with Most Total Allocations')
     ax.set_xlabel('States and LGC')
     ax.set_ylabel('Total Allocation')
-    plt.xticks(rotation=45)
+    plt.xticks(rotation=45, ha='right')  # Rotate labels for better readability
 
-    # Display the plot in Streamlit
+# Display the plot in Streamlit
     st.pyplot(fig)
 
 
