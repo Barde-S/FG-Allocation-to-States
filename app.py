@@ -311,9 +311,8 @@ if selected == "Static":
     x='STATE_LGC',
     y=total_allocations_by_state_df['Total Allocation']/1000,
     title='Top Ten (10) LGC with Most Total Allocations',
-    labels={'STATE_LGC': 'LGC', 'Total Allocation': 'Total Allocation'},
-    text='Total Allocation'  # Show values on the bars
-)
+    labels={'STATE_LGC': 'LGC', 'Total Allocation': total_allocations_by_state_df['Total Allocation']*100}
+        )
 
     # Customize the layout for better display
     fig.update_layout(
