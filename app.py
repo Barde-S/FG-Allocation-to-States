@@ -343,7 +343,7 @@ if selected == "Static":
     values='Allocation',
     index=melted['Date'].dt.year,
     columns='LGC',
-    aggfunc='sum'
+    aggfunc='sum')
     
 
     # Create the bar chart using Plotly
