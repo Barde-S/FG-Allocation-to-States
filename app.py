@@ -125,51 +125,9 @@ if selected == "Static":
     columns='Region',
     aggfunc='sum'
     )
-if selected == "Dynamic":
-    st.header("FAAC Allocation")
-    st.subheader('')
-    st.write("""
-    """)
-    numeric_columns = df.select_dtypes(include='number')
-    total_allocations_by_state = numeric_columns.set_index(df['State']).sum(axis=1).sort_values(ascending=False)
-    # Plotting the total allocations by state
-  #  plt.figure()
-    # sns.set_style("whitegrid")
-    # palette = sns.color_palette("viridis", len(total_allocations_by_state))
-    # sns.barplot(
-    #     x=total_allocations_by_state.index,
-    #     y=total_allocations_by_state.values,
-    #     palette=palette
-    # )
-    # plt.title('Total Allocations by State (2007-2024)')
-    # plt.xlabel('State')
-    # plt.ylabel('Total Allocation')
-    # plt.xticks(rotation=90)
-    # plt.yticks(fontsize=6)
-    # sns.despine()
-    # st.pyplot(plt)
-    st.subheader('')
-    st.write("""
-    """)
-    # selected_states = ['Bayelsa', 'Lagos', 'Akwa Ibom', 'Kano', 'Rivers', 'Delta', 'Ondo']
-    # # Plotting the monthly allocations trend for selected states
-    # # plt.figure()
-    # for state in selected_states:
-    #     dates = df.columns[2:-1]  # Start from index 2 to exclude 'State' and 'Region'
-    #     dates = pd.to_datetime(dates, format='%b-%Y')
-    #     allocations = df.set_index('State').loc[state, dates]
-    #     plt.plot(dates, allocations, label=state)
-    # plt.title('Allocations Trend (2007-2024) For States with The Most Share of Allocation')
-    # plt.xlabel('Date')
-    # plt.ylabel('Monthly Allocation')
-    # plt.legend()
-    # plt.xticks(rotation=90)
-    # st.pyplot(plt)
-    st.subheader('')
-    st.write("""
-    
-    """)
-    # Define the correct order for months
+
+
+       # Define the correct order for months
     month_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     # Convert index to categorical with specified order
     pivot_table_avg.index = pd.Categorical(pivot_table_avg.index, categories=month_order, ordered=True)
@@ -185,18 +143,10 @@ if selected == "Dynamic":
     plt.grid(True)
     st.pyplot(plt)
     st.subheader('Inflation Trends')
-    st.write("""
-    
-    """)
-# this portion is supposedly for pivot_table_mean and sum
-    
-    # # Transpose the pivot tables
-    # pivot_table_sum_transposed = pivot_table_sum.transpose()
-    # pivot_table_avg_transposed = pivot_table_avg.transpose()
-    # # Set index to datetime for plotting
-    # pivot_table_sum_transposed.index = pd.to_datetime(pivot_table_sum_transposed.index, format='%b-%Y')
-    # pivot_table_avg_transposed.index = pd.to_datetime(pivot_table_avg_transposed.index, format='%b-%Y')
-    df_melted = df.melt(id_vars=['State', 'Region'], var_name='Date', value_name='Allocation')
+
+
+
+        df_melted = df.melt(id_vars=['State', 'Region'], var_name='Date', value_name='Allocation')
 # Convert Date column to datetime format
     df_melted['Date'] = pd.to_datetime(df_melted['Date'], format='%b-%Y', errors='coerce')
 # Drop rows with invalid dates
@@ -295,6 +245,73 @@ if selected == "Dynamic":
     st.subheader('Download the Entire Report:')
     st.header("Visualizations and Insights")
     st.markdown('<h4><u>GDP Insights</u></h4>', unsafe_allow_html=True)
+
+
+
+
+if selected == "Dynamic":
+    st.header("FAAC Allocation")
+    st.subheader('')
+    st.write("""
+    """)
+    numeric_columns = df.select_dtypes(include='number')
+    total_allocations_by_state = numeric_columns.set_index(df['State']).sum(axis=1).sort_values(ascending=False)
+    # Plotting the total allocations by state
+  #  plt.figure()
+    # sns.set_style("whitegrid")
+    # palette = sns.color_palette("viridis", len(total_allocations_by_state))
+    # sns.barplot(
+    #     x=total_allocations_by_state.index,
+    #     y=total_allocations_by_state.values,
+    #     palette=palette
+    # )
+    # plt.title('Total Allocations by State (2007-2024)')
+    # plt.xlabel('State')
+    # plt.ylabel('Total Allocation')
+    # plt.xticks(rotation=90)
+    # plt.yticks(fontsize=6)
+    # sns.despine()
+    # st.pyplot(plt)
+    st.subheader('')
+    st.write("""
+    """)
+    # selected_states = ['Bayelsa', 'Lagos', 'Akwa Ibom', 'Kano', 'Rivers', 'Delta', 'Ondo']
+    # # Plotting the monthly allocations trend for selected states
+    # # plt.figure()
+    # for state in selected_states:
+    #     dates = df.columns[2:-1]  # Start from index 2 to exclude 'State' and 'Region'
+    #     dates = pd.to_datetime(dates, format='%b-%Y')
+    #     allocations = df.set_index('State').loc[state, dates]
+    #     plt.plot(dates, allocations, label=state)
+    # plt.title('Allocations Trend (2007-2024) For States with The Most Share of Allocation')
+    # plt.xlabel('Date')
+    # plt.ylabel('Monthly Allocation')
+    # plt.legend()
+    # plt.xticks(rotation=90)
+    # st.pyplot(plt)
+    st.subheader('')
+    st.write("""
+    
+    """)
+ 
+    st.write("""
+    
+    """)
+# this portion is supposedly for pivot_table_mean and sum
+    
+    # # Transpose the pivot tables
+    # pivot_table_sum_transposed = pivot_table_sum.transpose()
+    # pivot_table_avg_transposed = pivot_table_avg.transpose()
+    # # Set index to datetime for plotting
+    # pivot_table_sum_transposed.index = pd.to_datetime(pivot_table_sum_transposed.index, format='%b-%Y')
+    # pivot_table_avg_transposed.index = pd.to_datetime(pivot_table_avg_transposed.index, format='%b-%Y')
+
+
+# this potion is where i cut tthe body of code
+
+
+
+    
     st.write("***GDP (constant LCU) Over Time***")
 # Define the order of months for proper plotting
     month_order = ['2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06',
