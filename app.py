@@ -178,16 +178,49 @@ if selected == "Static":
     pivot_table_avg_transposed = pivot_table_avg.T
 
 
-    for region in pivot_table_sum_transposed.columns:
-        plt.plot(pivot_table_sum_transposed[region], label=region)
-    plt.title('Sum Allocations Time Series by Region')
-    plt.xlabel('Date')
-    plt.ylabel('Sum Allocation')
-    plt.legend()
-    plt.grid(True)
-    plt.show()
-# Display plot using Streamlit
-    st.pyplot(plt)
+    fig2 = px.lineplot(
+    pivot_table_sum_transposed,
+    x='Date',
+    y='Allocation',
+    color='Region',
+    labels={'Region': 'pivot_table_sum_transposed[region]'},
+    title='Sum Allocations Time Series by Region',
+    template='plotly_white',
+    color_discrete_sequence=px.colors.qualitative.Plotly
+)
+
+# Customize the layout for better readability
+    fig2.update_layout(
+    autosize=False,
+    width=1850,
+    height=600,
+    xaxis_title='Date',
+    yaxis_title='Total Allocation',
+    xaxis_tickangle=-90,
+    title_font=dict(size=24, family='Arial', color='black'),
+    xaxis=dict(tickfont=dict(size=12)),
+    yaxis=dict(tickfont=dict(size=12)),
+    legend_title_text='Region'
+)
+
+# Show the bar plot
+    st.plotly_chart(fig2)
+
+
+
+
+
+    
+#     for region in pivot_table_sum_transposed.columns:
+#         plt.plot(pivot_table_sum_transposed[region], label=region)
+#     plt.title('Sum Allocations Time Series by Region')
+#     plt.xlabel('Date')
+#     plt.ylabel('Sum Allocation')
+#     plt.legend()
+#     plt.grid(True)
+#     plt.show()
+# # Display plot using Streamlit
+#     st.pyplot(plt)
     
     
         
