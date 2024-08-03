@@ -308,11 +308,49 @@ if selected == "Static":
     # (total_allocations_by_state_df.y)/1000
 
     
+#     # Create the bar chart using Plotly
+#     fig = px.bar(
+#     total_allocations_by_state_df,
+#     x='LGC',
+#     y='y',
+#     title='Top Ten (10) LGC with Most Total Allocations',
+#     labels={'LGC': 'LGC', 'Total Allocation': 'Total Allocation'}
+#         )
+
+#     # Customize the layout for better display
+#     fig.update_layout(
+#     xaxis_title='LGC',
+#     yaxis_title='Total Allocation',
+#     xaxis_tickangle=-45,  # Rotate x-axis labels for better readability
+#     template='plotly_white'
+# )
+
+#     # Display the plot in Streamlit
+#     st.plotly_chart(fig)
+
+
+    melted = lgas.melt(id_vars=['LGC', 'Region'], var_name='Date', value_name='Allocation')
+
+# Convert Date column to datetime format
+    melted['Date'] = pd.to_datetime(df_melted['Date'], format='%b-%Y', errors='coerce')
+
+# Drop rows with invalid dates
+    melted.dropna(subset=['Date'], inplace=True)
+
+# Create a pivot table to calculate average allocations by LGC for each month
+    pivot_table_sum = pd.pivot_table(
+    melted,
+    values='Allocation',
+    index=melted['Date'].dt.year,
+    columns='LGC',
+    aggfunc='sum'
+    
+
     # Create the bar chart using Plotly
     fig = px.bar(
-    total_allocations_by_state_df,
+    melted,
     x='LGC',
-    y='y',
+    y='Total Allocation',
     title='Top Ten (10) LGC with Most Total Allocations',
     labels={'LGC': 'LGC', 'Total Allocation': 'Total Allocation'}
         )
@@ -328,6 +366,8 @@ if selected == "Static":
     # Display the plot in Streamlit
     st.plotly_chart(fig)
 
+
+        
 
 if selected == "Dynamic":
     st.header("FAAC Allocation")
