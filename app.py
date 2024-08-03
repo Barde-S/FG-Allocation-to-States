@@ -135,15 +135,15 @@ if selected == "Static":
     monthly_avg_pivot = pivot_table_avg.sort_index()
     # Plot monthly average allocations by region
     # plt.figure()
-    for region in monthly_avg_pivot.columns:
-        plt.plot(monthly_avg_pivot.index, monthly_avg_pivot[region], marker='o', label=region)
-    plt.title('Monthly Average Allocations by Region')
-    plt.xlabel('Month')
-    plt.ylabel('Average Allocation')
-    plt.legend()
-    plt.grid(True)
-    st.pyplot(plt)
-    st.subheader('Inflation Trends')
+    # for region in monthly_avg_pivot.columns:
+    #     plt.plot(monthly_avg_pivot.index, monthly_avg_pivot[region], marker='o', label=region)
+    # plt.title('Monthly Average Allocations by Region')
+    # plt.xlabel('Month')
+    # plt.ylabel('Average Allocation')
+    # plt.legend()
+    # plt.grid(True)
+    # st.pyplot(plt)
+    # st.subheader('Inflation Trends')
 
 
 
@@ -178,33 +178,42 @@ if selected == "Static":
     pivot_table_avg_transposed = pivot_table_avg
 
 
-    for region in pivot_table_sum_transposed.columns:
-        plt.plot(pivot_table_sum_transposed[region], label=region)
+#     for region in pivot_table_sum_transposed.columns:
+#         plt.plot(pivot_table_sum_transposed[region], label=region)
 
-    plt.title('Sum Allocations Time Series by Region')
-    plt.xlabel('Date')
-    plt.ylabel('Sum Allocation')
-    plt.legend()
-    plt.grid(True)
+#     plt.title('Sum Allocations Time Series by Region')
+#     plt.xlabel('Date')
+#     plt.ylabel('Sum Allocation')
+#     plt.legend()
+#     plt.grid(True)
 
-# Display the plot in Streamlit
-    st.pyplot(plt)
+# # Display the plot in Streamlit
+#     st.pyplot(plt)
 
 
 
 
 
     
-#     for region in pivot_table_sum_transposed.columns:
-#         plt.plot(pivot_table_sum_transposed[region], label=region)
-#     plt.title('Sum Allocations Time Series by Region')
-#     plt.xlabel('Date')
-#     plt.ylabel('Sum Allocation')
-#     plt.legend()
-#     plt.grid(True)
-#     plt.show()
-# # Display plot using Streamlit
-#     st.pyplot(plt)
+fig_avg = go.Figure()
+
+    for region in pivot_table_sum_transposed.columns:
+        fig_avg.add_trace(go.Scatter(
+        x=pivot_table_sum_transposed.index,
+        y=pivot_table_sum_transposed[region],
+        mode='lines',
+        name=region
+    ))
+
+    fig_avg.update_layout(
+    title='Yearly Total Allocations Time Series by Region',
+    xaxis_title='Date',
+    yaxis_title='Total Allocation',
+    legend_title='Region',
+    template='plotly_white'
+)
+
+    st.plotly_chart(fig_avg)
     
     
         
@@ -221,7 +230,7 @@ if selected == "Static":
     ))
 
     fig_avg.update_layout(
-    title='Average Allocations Time Series by Region',
+    title='Yearly Average Allocations Time Series by Region',
     xaxis_title='Date',
     yaxis_title='Average Allocation',
     legend_title='Region',
