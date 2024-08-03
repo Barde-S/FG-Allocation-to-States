@@ -177,48 +177,17 @@ if selected == "Static":
     pivot_table_sum_transposed = pivot_table_sum.T
     pivot_table_avg_transposed = pivot_table_avg.T
 
-# Plotting sum allocations time series for each region using Plotly
-#     fig_sum = go.Figure()
 
-#     for region in pivot_table_sum_transposed.columns:
-#         fig_sum.add_trace(go.Scatter(
-#             y=pivot_table_sum_transposed.index,
-#             x=pivot_table_sum_transposed[region],
-#             mode='lines',
-#             name=region
-#     ))
-
-#     fig_sum.update_layout(
-#     title='Sum Allocations Time Series by Region',
-#     xaxis_title='Date',
-#     yaxis_title='Sum Allocation',
-#     legend_title='Region',
-#     template='plotly_white'
-# )
-
-#     st.plotly_chart(fig_sum)
-
-
-    for region in pivot_table_avg_transposed.columns:
-        plt.plot(pivot_table_avg_transposed[region],
-            label=region
-      #  data=pivot_table_avg_transposed,
-        
-    )
-
-# Add title and labels
-    plt.title('Average Allocations Time Series by Region')
+    for region in pivot_table_sum_transposed.columns:
+        plt.plot(pivot_table_sum_transposed[region], label=region)
+    plt.title('Sum Allocations Time Series by Region')
     plt.xlabel('Date')
-    plt.ylabel('Average Allocation')
-    plt.legend(title='Region')
+    plt.ylabel('Sum Allocation')
+    plt.legend()
     plt.grid(True)
-
+    plt.show()
 # Display plot using Streamlit
     st.pyplot(plt)
-    
-    
-    
-    
     
     
         
@@ -312,58 +281,6 @@ if selected == "Dynamic":
     """)
     numeric_columns = df.select_dtypes(include='number')
     total_allocations_by_state = numeric_columns.set_index(df['State']).sum(axis=1).sort_values(ascending=False)
-    # Plotting the total allocations by state
-  #  plt.figure()
-    # sns.set_style("whitegrid")
-    # palette = sns.color_palette("viridis", len(total_allocations_by_state))
-    # sns.barplot(
-    #     x=total_allocations_by_state.index,
-    #     y=total_allocations_by_state.values,
-    #     palette=palette
-    # )
-    # plt.title('Total Allocations by State (2007-2024)')
-    # plt.xlabel('State')
-    # plt.ylabel('Total Allocation')
-    # plt.xticks(rotation=90)
-    # plt.yticks(fontsize=6)
-    # sns.despine()
-    # st.pyplot(plt)
-    st.subheader('')
-    st.write("""
-    """)
-    # selected_states = ['Bayelsa', 'Lagos', 'Akwa Ibom', 'Kano', 'Rivers', 'Delta', 'Ondo']
-    # # Plotting the monthly allocations trend for selected states
-    # # plt.figure()
-    # for state in selected_states:
-    #     dates = df.columns[2:-1]  # Start from index 2 to exclude 'State' and 'Region'
-    #     dates = pd.to_datetime(dates, format='%b-%Y')
-    #     allocations = df.set_index('State').loc[state, dates]
-    #     plt.plot(dates, allocations, label=state)
-    # plt.title('Allocations Trend (2007-2024) For States with The Most Share of Allocation')
-    # plt.xlabel('Date')
-    # plt.ylabel('Monthly Allocation')
-    # plt.legend()
-    # plt.xticks(rotation=90)
-    # st.pyplot(plt)
-    st.subheader('')
-    st.write("""
-    
-    """)
- 
-    st.write("""
-    
-    """)
-# this portion is supposedly for pivot_table_mean and sum
-    
-    # # Transpose the pivot tables
-    # pivot_table_sum_transposed = pivot_table_sum.transpose()
-    # pivot_table_avg_transposed = pivot_table_avg.transpose()
-    # # Set index to datetime for plotting
-    # pivot_table_sum_transposed.index = pd.to_datetime(pivot_table_sum_transposed.index, format='%b-%Y')
-    # pivot_table_avg_transposed.index = pd.to_datetime(pivot_table_avg_transposed.index, format='%b-%Y')
-
-
-# this potion is where i cut tthe body of code
 
 
 
