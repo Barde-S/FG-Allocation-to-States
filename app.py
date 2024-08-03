@@ -298,23 +298,23 @@ if selected == "Static":
     st.markdown('<h4><u>GDP Insights</u></h4>', unsafe_allow_html=True)
     
 
-    total_allocations_by_state = lgas.set_index(['STATE', 'LGC']).drop('Region', axis=1).apply(pd.to_numeric, errors='coerce').sum(axis=1).sort_values(ascending=False).head(10)
+    total_allocations_by_state = lgas.set_index(['LGC']).drop('Region', axis=1).apply(pd.to_numeric, errors='coerce').sum(axis=1).sort_values(ascending=False).head(10)
 
 # Convert the Series to a DataFrame for easier plotting with Plotly
     total_allocations_by_state_df = total_allocations_by_state.reset_index()
-    total_allocations_by_state_df['STATE_LGC'] = total_allocations_by_state_df['STATE'] + ' - ' + total_allocations_by_state_df['LGC']
+    total_allocations_by_state_df['STATE_LGC'] = total_allocations_by_state_df['LGC']
     total_allocations_by_state_df = total_allocations_by_state_df[['STATE_LGC', 0]]
     total_allocations_by_state_df.columns = ['STATE_LGC', 'Total Allocation']
     total_allocations_by_state_df['y'] = total_allocations_by_state_df['Total Allocation']/1000
-    total_allocations_by_state_df.columns = ['STATE_LGC', 'Total Allocation', 'y']
+    total_allocations_by_state_df.columns = ['STATE_LGC', 'Total Allocation']
 
 # Create the bar chart using Plotly
     fig = px.bar(
     total_allocations_by_state_df,
     x=total_allocations_by_state_df['STATE_LGC'],
-    y='y',
+    y='Total Allocations',
     title='Top Ten (10) LGC with Most Total Allocations',
-    labels={'STATE_LGC': 'States and LGC', 'Total Allocation': 'y'},
+    labels={'STATE_LGC': 'States and LGC', 'Total Allocation': 'Total Allocations'},
 )
 
 # Display the plot in Streamlit
