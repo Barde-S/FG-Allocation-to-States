@@ -146,7 +146,7 @@ if selected == "Static":
 
 
 
-        df_melted = df.melt(id_vars=['State', 'Region'], var_name='Date', value_name='Allocation')
+    df_melted = df.melt(id_vars=['State', 'Region'], var_name='Date', value_name='Allocation')
 # Convert Date column to datetime format
     df_melted['Date'] = pd.to_datetime(df_melted['Date'], format='%b-%Y', errors='coerce')
 # Drop rows with invalid dates
