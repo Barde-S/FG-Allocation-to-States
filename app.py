@@ -72,7 +72,7 @@ if selected == "Static":
     total_allocations_by_state = numeric_columns.set_index(df['State']).sum(axis=1).sort_values(ascending=False)
     
     # Set the style
-    sns.set_style("whitegrid")
+    #sns.set_style("whitegrid")
     
     # Create a color palette
     palette = sns.color_palette("viridis", len(total_allocations_by_state))
