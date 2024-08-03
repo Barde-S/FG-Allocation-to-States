@@ -300,6 +300,33 @@ if selected == "Static":
 
 
 
+# Calculate the total allocations by state, excluding the 'Region' column
+    total_allocations_by_state = lgas.set_index(['STATE', 'LGC']).drop('Region', axis=1).apply(pd.to_numeric, errors='coerce').sum(axis=1).sort_values(ascending=False).head(10)
+
+# Convert the Series to a DataFrame for easier plotting with Plotly
+    total_allocations_by_state_df = total_allocations_by_state.reset_index()
+    total_allocations_by_state_df['STATE_LGC'] = total_allocations_by_state_df['STATE'] + ' - ' + total_allocations_by_state_df['LGC']
+    total_allocations_by_state_df = total_allocations_by_state_df[['STATE_LGC', 0]]
+    total_allocations_by_state_df.columns = ['STATE_LGC', 'Total Allocation']
+
+# Create the bar chart using Plotly
+    fig = px.bar(
+    total_allocations_by_state_df,
+    x='STATE_LGC',
+    y='Total Allocation',
+    title='Top Ten (10) LGC with Most Total Allocations',
+    labels={'STATE_LGC': 'States and LGC', 'Total Allocation': 'Total Allocation'},
+)
+
+# Display the plot
+    st.plotly_chart(fig)
+
+
+
+
+
+
+
 if selected == "Dynamic":
     st.header("FAAC Allocation")
     st.subheader('')
