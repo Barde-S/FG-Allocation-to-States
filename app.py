@@ -296,54 +296,27 @@ if selected == "Static":
     st.subheader('Download the Entire Report:')
     st.header("Visualizations and Insights")
     st.markdown('<h4><u>GDP Insights</u></h4>', unsafe_allow_html=True)
+    
 
-
-
-
-    # Calculate the total allocations by state, excluding the 'Region' column
     total_allocations_by_state = lgas.set_index(['STATE', 'LGC']).drop('Region', axis=1).apply(pd.to_numeric, errors='coerce').sum(axis=1).sort_values(ascending=False).head(10)
 
-    # Convert the Series to a DataFrame for easier plotting with Plotly
+# Convert the Series to a DataFrame for easier plotting with Plotly
     total_allocations_by_state_df = total_allocations_by_state.reset_index()
     total_allocations_by_state_df['STATE_LGC'] = total_allocations_by_state_df['STATE'] + ' - ' + total_allocations_by_state_df['LGC']
     total_allocations_by_state_df = total_allocations_by_state_df[['STATE_LGC', 0]]
     total_allocations_by_state_df.columns = ['STATE_LGC', 'Total Allocation']
 
-    # Create the bar chart using Plotly
+# Create the bar chart using Plotly
     fig = px.bar(
     total_allocations_by_state_df,
     x='STATE_LGC',
     y='Total Allocation',
     title='Top Ten (10) LGC with Most Total Allocations',
     labels={'STATE_LGC': 'States and LGC', 'Total Allocation': 'Total Allocation'},
-    text='Total Allocation'  # Show values on the bars
-)
-
-    # Customize the layout for better display
-    fig.update_layout(
-    xaxis_title='States and LGC',
-    yaxis_title='Total Allocation',
-    xaxis_tickangle=-45,  # Rotate x-axis labels for better readability
-    template='plotly_white'
 )
 
 # Display the plot in Streamlit
     st.plotly_chart(fig)
-
-
-# Calculate the total allocations by state, excluding the 'Region' column
-    total_allocations_by_state = lgas.set_index(['STATE', 'LGC']).drop('Region', axis=1).apply(pd.to_numeric, errors='coerce').sum(axis=1).sort_values(ascending=False).head(10)
-
-# Create the bar plot
-    fig, ax = plt.subplots(figsize=(10, 6))  # Adjust the size as needed
-    total_allocations_by_state.plot(kind='bar', ax=ax)
-    ax.set_title('Top Ten (10) LGC with Most Total Allocations')
-    ax.set_xlabel('States and LGC')
-    ax.set_ylabel('Total Allocation')
-    plt.xticks(rotation=45, ha='right')  # Rotate labels for better readability
-
-# Display the plot in Streamlit
-    st.pyplot(fig)
 
 
 
