@@ -63,7 +63,7 @@ with st.sidebar:
         menu_icon="cast"
     )
 if selected == "Static":
-    st.header("FAAC Allocation")
+    st.header("                        FAAC Allocation")
     st.subheader('')
     st.write("""
     Total tllocations to states since 2007 
@@ -74,27 +74,29 @@ if selected == "Static":
     # Set the style
     #sns.set_style("whitegrid")
     
-    # Create a color palette
-    palette = sns.color_palette("viridis", len(total_allocations_by_state))
-    
-    # Plotting the total allocations by state
-    # plt.figure()
-    sns.barplot(
-        x=total_allocations_by_state.index,
-        y=total_allocations_by_state.values,
-        palette=palette
-    )
-    # Customize the plot
-    plt.title('Total Allocations by State (2007-2024)', fontsize=18, fontweight='bold')
-    plt.xlabel('State')
-    plt.ylabel('Total Allocation')
-    plt.xticks(rotation=90)
-    plt.yticks(fontsize=12)
-    # Remove top and right spines
-    sns.despine()
-    # Show plot in Streamlit
-    st.pyplot(plt)
-   # this position is for the cut piece of code
+    fig = px.bar(
+    total_allocations_by_state_df,
+    x='State',
+    y='Total Allocation',
+    color='State',  # Use color differentiation for each bar
+    title='Total Allocations by State (2007-2024)',
+    labels={'State': 'State', 'Total Allocation': 'Total Allocation'},
+    text='Total Allocation'  # Show values on the bars
+)
+
+# Customize the layout for better display
+    fig.update_layout(
+    title={'font': {'size': 10, 'color': 'black', 'family': 'Arial'}},
+    xaxis_title='State',
+    yaxis_title='Total Allocation',
+    xaxis_tickangle=-90,  # Rotate x-axis labels for better readability
+    xaxis={'tickfont': {'size': 8}},
+    yaxis={'tickfont': {'size': 8}},
+    template='plotly_white'
+)
+
+# Display the plot in Streamlit
+    st.plotly_chart(fig)
     
     
     regions = {'North Central': ['Benue', 'Kogi', 'Kwara', 'Nasarawa', 'Niger', 'Plateau', 'Federal Capital Territory'],
