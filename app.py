@@ -160,7 +160,7 @@ if selected == "Static":
     pivot_table_avg = pd.pivot_table(
     df_melted,
     values='Allocation',
-    index=df_melted['Date'].year,
+    index=df_melted['Date'].dt.year,
     columns='Region',
     aggfunc='mean'
 )
@@ -168,7 +168,7 @@ if selected == "Static":
     pivot_table_sum = pd.pivot_table(
     df_melted,
     values='Allocation',
-    index=df_melted['Date'].year,
+    index=df_melted['Date'].dt.year,
     columns='Region',
     aggfunc='sum'
 )
