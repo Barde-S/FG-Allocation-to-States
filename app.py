@@ -313,7 +313,7 @@ if selected == "Static":
     x='LGC',
     y='y',
     title='Top Ten (10) LGC with Most Total Allocations',
-    labels={'LGC': 'LGC', 'Total Allocation': 'Total Allocation'}
+    labels={'LGC': 'LGC', 'Total Allocation': 'y'}
         )
 
     # Customize the layout for better display
