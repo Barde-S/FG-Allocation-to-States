@@ -64,10 +64,7 @@ with st.sidebar:
     )
 if selected == "Static":
     st.header("                        FAAC Allocation")
-    st.subheader('')
-    st.write("""
-    Total tllocations to states since 2007 
-    """)
+   
     numeric_columns = df.select_dtypes(include='number')
     total_allocations_by_state = numeric_columns.set_index(df['State']).sum(axis=1).sort_values(ascending=False)
     total_allocations_by_state = total_allocations_by_state.reset_index()
@@ -210,7 +207,8 @@ if selected == "Static":
     ))
 
     fig_avg.update_layout(
-    title='Yearly Total Allocations Time Series by Region',
+   # title='Yearly Total Allocations Time Series by Region',
+    title=('Yearly Total Allocations Time Series by Region', {'font': {'size': 30, 'color': 'white', 'family': 'Arial'}}),
     xaxis_title='Date',
     yaxis_title='Total Allocation',
     legend_title='Region',
@@ -244,7 +242,7 @@ if selected == "Static":
     st.plotly_chart(fig_avg)
 
 # Financial and Monetary Indicators
-    st.subheader('Financial and Monetary Indicators')
+    st.subheader('')
     st.write("""
 """)
 
@@ -258,7 +256,7 @@ if selected == "Static":
 # Display the pie chart
     st.plotly_chart(fig1)
 
-    st.subheader('Credit to Private Sector')
+    st.subheader('')
     st.write("""
 """)
 
@@ -288,7 +286,7 @@ if selected == "Static":
     xaxis_title='State',
     yaxis_title='Total Allocation',
     xaxis_tickangle=-90,
-    title_font=dict(size=24, family='Arial', color='black'),
+    title_font=dict(size=30, family='Arial', color='White'),
     xaxis=dict(tickfont=dict(size=12)),
     yaxis=dict(tickfont=dict(size=12)),
     legend_title_text='Region'
@@ -297,10 +295,6 @@ if selected == "Static":
 # Show the bar plot
     st.plotly_chart(fig2)
 
-    st.subheader('Download the Entire Report:')
-    st.header("Visualizations and Insights")
-    st.markdown('<h4><u>GDP Insights</u></h4>', unsafe_allow_html=True)
-    
 
     # Calculate the total allocations by LGC, excluding the 'Region' column
     # total_allocations_by_state = lgas.set_index(['LGC']).drop('Region', axis=1).apply(pd.to_numeric, errors='coerce').sum(axis=1).sort_values(ascending=False).head(10)
