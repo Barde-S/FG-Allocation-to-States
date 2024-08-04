@@ -575,7 +575,7 @@ if selected == "Dynamic":
     st.title("Allocation to LGC Analysis")
 
 
-     state_selected_a = st.selectbox("Select LGC:", unique_states, key='state_c')
+    state_selected_a = st.selectbox("Select LGC:", unique_states, key='state_c')
 
 # Select the year range
     start_year, end_year = st.select_slider(
