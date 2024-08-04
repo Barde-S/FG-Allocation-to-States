@@ -70,8 +70,8 @@ if selected == "Static":
     """)
     numeric_columns = df.select_dtypes(include='number')
     total_allocations_by_state = numeric_columns.set_index(df['State']).sum(axis=1).sort_values(ascending=False)
-    total_allocations_by_state_df = total_allocations_by_state.reset_index()
-    total_allocations_by_state_df.columns = ['State', 'Allocation']
+    total_allocations_by_state = total_allocations_by_state.reset_index()
+    total_allocations_by_state.columns = ['State', 'Allocation']
     
     # Set the style
     #sns.set_style("whitegrid")
