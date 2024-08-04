@@ -655,3 +655,77 @@ if selected == "Dynamic":
 
     # Display the plot
     st.plotly_chart(fig)
+
+
+
+    # Convert numeric columns to numeric type
+    numeric_columns = lgas.select_dtypes(include=np.number).columns
+    lgas[numeric_columns] = lgas[numeric_columns].apply(pd.to_numeric, errors='coerce')
+
+# Function to plot allocations by LGCs
+    def plot_allocations_by_lgc(state):
+        filtered_data = lgas[lgas['STATE'] == state.upper()]
+        total_allocations_by_lgc = filtered_data.set_index('LGC')[numeric_columns].sum(axis=1).sort_values(ascending=False)
+
+    # Creating the bar plot using Plotly
+        fig = px.bar(
+        total_allocations_by_lgc,
+        x=total_allocations_by_lgc.index,
+        y=total_allocations_by_lgc.values,
+        labels={'x': 'LGC', 'y': 'Total Allocation'},
+        title=f'Total Allocations to {state.upper()} (2007-2024)'
+    )
+        fig.update_layout(xaxis_title='LGC', yaxis_title='Total Allocation', xaxis_tickangle=-90)
+
+        return fig
+
+# List of unique states
+    unique_states = sorted(lgas['STATE'].unique())
+
+# Streamlit app
+    st.title(f'Allocations to LGCs Per State')
+
+# Selectbox for states
+    state_selected = st.selectbox("Select a state:", unique_states)
+
+# Plot allocations for the selected state
+    fig = plot_allocations_by_lgc(state_selected)
+    st.plotly_chart(fig)
+
+
+
+    df_melted['Year'] = df_melted['Date'].dt.year
+
+    # Function to extract the month from the date
+    def extract_month(date):
+    return date.month
+
+    # Function to perform regional analysis with enhanced visualizations
+    def regional_analysis(df, region_name):
+    # Create a subset of the DataFrame for the specified region
+        region_df = df[df['Region'] == region_name]
+
+        # Extract the month from the date
+        region_df['Month'] = region_df['Date'].dt.month
+
+    # Aggregating data to get the total allocation per year
+        region_agg_year = region_df.groupby(['Year', 'State'])['Allocation'].sum().reset_index()
+
+    # Plot the trend for each state in the region by year
+        fig_year = px.line(region_agg_year, x='Year', y='Allocation', color='State', title=f'Total Allocations by State Over the Years in {region_name}')
+        fig_year.update_layout(xaxis_title='Year', yaxis_title='Total Allocation', legend_title='State')
+
+        return fig_year
+
+# List of regions in Nigeria
+    regions = ['North Central', 'North East', 'North West', 'South East', 'South South', 'South West']
+
+# Streamlit app
+    st.title("Region-wise Yearly Analysis of Total Satate Allocations (2007 - 2024)")
+
+# Selectbox for regions
+    selected_region = st.selectbox("Select a region:", regions)
+
+# Perform regional analysis and display the plot
+    fig_year = regional_analysis(df_melted, selected_region)
+    st.plotly_chart(fig_year)
