@@ -76,8 +76,8 @@ if selected == "Static":
     
     fig = px.bar(
     total_allocations_by_state,
-    x='State',
-    y='Total Allocation',
+    x=total_allocations_by_state.index,
+    y=total_allocations_by_state.values,
     color='State',  # Use color differentiation for each bar
     title='Total Allocations by State (2007-2024)',
     labels={'State': 'State', 'Total Allocation': 'Total Allocation'},
