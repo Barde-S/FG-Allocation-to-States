@@ -573,12 +573,12 @@ if selected == "Dynamic":
     unique_years = allocations_by_year['Year'].unique()
 
     # Streamlit App
-    st.title("Allocation Data Analysis")
+    st.title("Allocation to LGC Analysis")
 
     # Select the first state
     state_selected_a = st.selectbox("Select the first LGC:", unique_states, key='state_c')
 
-    # Select the year range
+# Select the year range
     start_year, end_year = st.select_slider(
     "Select the year range:",
     options=unique_years,
@@ -592,45 +592,16 @@ if selected == "Dynamic":
     key='plot_type_radio3'
 )
 
-# Filter data based on user selection
+    # Filter data based on user selection
     filtered_data_a = allocations_by_year[
     (allocations_by_year['LGC'] == state_selected_a) &
     (allocations_by_year['Year'] >= start_year) &
     (allocations_by_year['Year'] <= end_year)
 ]
 
-    if start_year == end_year:
-        if plot_type == 'Total Sum':
-        # Create monthly line plot for total sum
-            summed_data_a = filtered_data_a.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0).reset_index()
-            fig = px.line(summed_data_a, x='Month', y='Allocation', title=f'Total Allocations by Month for {state_selected_a} in {start_year}')
-        else:
-        # Create monthly line plot for average
-            avg_data_a = filtered_data_a.groupby('Month')['Allocation'].mean().reindex(month_order).fillna(0).reset_index()
-            fig = px.line(avg_data_a, x='Month', y='Allocation', title=f'Average Allocations by Month for {state_selected_a} in {start_year}')
-    else:
-        if plot_type == 'Total Sum':
-        # Create yearly line plot for total sum
-            summed_data_a = filtered_data_a.groupby('Year')['Allocation'].sum().reset_index()
-            fig = px.line(summed_data_a, x='Year', y='Allocation', title=f'Total Allocations for {state_selected_a} Over the Years')
-        else:
-        # Create yearly line plot for average
-            avg_data_a = filtered_data_a.groupby('Year')['Allocation'].mean().reset_index()
-            fig = px.line(avg_data_a, x='Year', y='Allocation', title=f'Average Allocations for {state_selected_a} Over the Years')
-
-    fig.update_xaxes(title_text='Year' if start_year != end_year else 'Month')
-    fig.update_yaxes(title_text='Total Allocation')
-    fig.update_layout(legend_title_text='Legend', xaxis_tickangle=-90)
-
-    # Display the plot
-    st.plotly_chart(fig)
-
-    
-
     # Filter data based on user selection for second LGC
     state_selected_b = st.selectbox("Select the second LGC:", unique_states, key='state_d')
 
-    # Filter data based on user selection
     filtered_data_b = allocations_by_year[
     (allocations_by_year['LGC'] == state_selected_b) &
     (allocations_by_year['Year'] >= start_year) &
@@ -641,7 +612,7 @@ if selected == "Dynamic":
 
     if start_year == end_year:
         if plot_type == 'Total Sum':
-            # Create monthly line plot for total sum
+        # Create monthly line plot for total sum
             summed_data_a = filtered_data_a.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0)
             summed_data_b = filtered_data_b.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0)
         
@@ -660,7 +631,7 @@ if selected == "Dynamic":
             fig.update_layout(title=f'Average Allocations by Month for {state_selected_a} and {state_selected_b} in {start_year}')
     else:
         if plot_type == 'Total Sum':
-            # Create yearly line plot for total sum
+        # Create yearly line plot for total sum
             summed_data_a = filtered_data_a.groupby('Year')['Allocation'].sum().reset_index()
             summed_data_b = filtered_data_b.groupby('Year')['Allocation'].sum().reset_index()
         
