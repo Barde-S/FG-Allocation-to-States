@@ -88,12 +88,12 @@ if selected == "Static":
 
 # Customize the layout for better display
     fig.update_layout(
-    title={'font': {'size': 10, 'color': 'black', 'family': 'Arial'}},
+    title={'font': {'size': 30, 'color': 'white', 'family': 'Arial'}},
     xaxis_title='State',
     yaxis_title='Total Allocation',
     xaxis_tickangle=-90,  # Rotate x-axis labels for better readability
-    xaxis={'tickfont': {'size': 8}},
-    yaxis={'tickfont': {'size': 8}},
+    xaxis={'tickfont': {'size': 12}},
+    yaxis={'tickfont': {'size': 12}},
     template='plotly_white'
 )
 
