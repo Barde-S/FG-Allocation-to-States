@@ -595,7 +595,7 @@ if selected == "Dynamic":
     filtered_data_a = allocations_by_year[
     (allocations_by_year['LGC'] == state_selected_a) &
     (allocations_by_year['Year'] >= start_year) &
-    (allocations_by_year['Year'] <= end_year)
+    (allocations_by_year['Year'] <= end_year)]
 
     fig = go.Figure()
 
