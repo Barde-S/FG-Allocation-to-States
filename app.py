@@ -80,8 +80,8 @@ if selected == "Static":
     y=total_allocations_by_state.values,
     color='State',  # Use color differentiation for each bar
     title='Total Allocations by State (2007-2024)',
-    labels={'State': 'State', 'Total Allocation': 'Total Allocation'},
-    text='Total Allocation'  # Show values on the bars
+    labels={'State': 'State', 'Total Allocation': 'Allocation'}
+    #text='Total Allocation'  # Show values on the bars
 )
 
 # Customize the layout for better display
