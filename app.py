@@ -390,45 +390,49 @@ if selected == "Dynamic":
 
 
 
-    
-    st.write("***GDP (constant LCU) Over Time***")
 # Define the order of months for proper plotting
     month_order = ['2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06',
                '2023-07', '2023-08', '2023-09', '2023-10', '2023-11', '2023-12']
+
 # Convert Date column to datetime format
     df_melted['Date'] = pd.to_datetime(df_melted['Date'], format='%Y-%m')
+
 # Extract the year and month from the Date column
     df_melted['Year'] = df_melted['Date'].dt.year
     df_melted['Month'] = df_melted['Date'].dt.strftime('%Y-%m')
+
     allocations_by_year = df_melted
+
 # Get unique states and years from the DataFrame
     unique_states = [lgc.capitalize() for lgc in allocations_by_year['State'].unique()]
     unique_years = allocations_by_year['Year'].unique()
+
     st.title("State Allocations Analysis")
+
 # Prompt user to select the first state
     state_selected_a = st.selectbox("Select the first State:", unique_states, key='state_e')
+
 # Prompt user to select the year range
     start_year, end_year = st.slider("Select a year range:", min(unique_years), max(unique_years), (min(unique_years), max(unique_years)), key='range_slider1')
+
 # Prompt user to select whether they want the total sum or average
     plot_type = st.radio("Select the type of plot:", ("Total Sum", "Average"), key='plot_type_radio1')
+
     if start_year == end_year:
-    # Filter data by month within the selected year for both states
+    # Filter data by month within the selected year for the state
         filtered_data_a = allocations_by_year[
-            (allocations_by_year['State'] == state_selected_a) & 
-            (allocations_by_year['Year'] == start_year)
+        (allocations_by_year['State'] == state_selected_a) & 
+        (allocations_by_year['Year'] == start_year)
     ]
+    
         if plot_type == "Total Sum":
         # Create monthly line plot for total sum
-            summed_data_a = filtered_data_a.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0)
-            fig, ax = plt.subplots()
-            ax.plot(summed_data_a.index, summed_data_a.values, marker='o', label=f"{state_selected_a} - Total Sum")
-            ax.set_title(f'Total Allocations by Month for {state_selected_a} in {start_year}')
+            summed_data_a = filtered_data_a.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0).reset_index()
+            fig = px.line(summed_data_a, x='Month', y='Allocation', markers=True, title=f'Total Allocations by Month for {state_selected_a} in {start_year}')
         else:
         # Create monthly line plot for average
-            avg_data_a = filtered_data_a.groupby('Month')['Allocation'].mean().reindex(month_order).fillna(0)
-            fig, ax = plt.subplots()
-            ax.plot(avg_data_a.index, avg_data_a.values, marker='o', label=f"{state_selected_a} - Average")
-            ax.set_title(f'Average Allocations by Month for {state_selected_a} in {start_year}')
+            avg_data_a = filtered_data_a.groupby('Month')['Allocation'].mean().reindex(month_order).fillna(0).reset_index()
+            fig = px.line(avg_data_a, x='Month', y='Allocation', markers=True, title=f'Average Allocations by Month for {state_selected_a} in {start_year}')
     else:
     # Filter data based on user selection for yearly plot
         filtered_data_a = allocations_by_year[
@@ -436,29 +440,22 @@ if selected == "Dynamic":
         (allocations_by_year['Year'] >= start_year) &
         (allocations_by_year['Year'] <= end_year)
     ]
-        if plot_type == "Total Sum":    
+    
+        if plot_type == "Total Sum":
         # Create yearly line plot for total sum
             summed_data_a = filtered_data_a.groupby('Year')['Allocation'].sum().reset_index()
-            fig, ax = plt.subplots()
-            ax.plot(summed_data_a['Year'], summed_data_a['Allocation'], marker='o', label=f"{state_selected_a} - Total Sum")
-            ax.set_title(f'Total Allocations for {state_selected_a} Over the Years')
+            fig = px.line(summed_data_a, x='Year', y='Allocation', markers=True, title=f'Total Allocations for {state_selected_a} Over the Years')
         else:
         # Create yearly line plot for average
             avg_data_a = filtered_data_a.groupby('Year')['Allocation'].mean().reset_index()
-            fig, ax = plt.subplots()
-            ax.plot(avg_data_a['Year'], avg_data_a['Allocation'], marker='o', label=f"{state_selected_a} - Average")
-            ax.set_title(f'Average Allocations for {state_selected_a} Over the Years')
-    ax.set_xlabel('Year' if start_year != end_year else 'Month')
-    ax.set_ylabel('Total Allocation')
-    ax.legend()
-    ax.grid(True)
-    plt.xticks(rotation=90)
-    st.pyplot(fig)
-    st.write("""
-""")
-# Plotting the GDP growth trend
-    st.write(' ***GDP Trends: Line Plot of GDP Growth (Annual %) Over the Years***')
-# Define the order of months for proper plotting
+            fig = px.line(avg_data_a, x='Year', y='Allocation', markers=True, title=f'Average Allocations for {state_selected_a} Over the Years')
+
+    fig.update_layout(xaxis_title='Year' if start_year != end_year else 'Month', yaxis_title='Total Allocation')
+    fig.update_xaxes(type='category' if start_year == end_year else 'linear', categoryorder='array' if start_year == end_year else None, categoryarray=month_order if start_year == end_year else None)
+    st.plotly_chart(fig)
+   
+
+
     month_order = ['2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06',
                '2023-07', '2023-08', '2023-09', '2023-10', '2023-11', '2023-12']
 # Melt the DataFrame to long format for easier manipulation
