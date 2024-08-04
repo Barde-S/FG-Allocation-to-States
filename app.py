@@ -551,9 +551,9 @@ if selected == "Dynamic":
 
 
 
-# Define the order of months for proper plotting
-   month_order = ['2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06',
-               '2023-07', '2023-08', '2023-09', '2023-10', '2023-11', '2023-12']
+    # Define the order of months for proper plotting
+    month_order = ['2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06',
+                   '2023-07', '2023-08', '2023-09', '2023-10', '2023-11', '2023-12']
 
     # Melt the DataFrame to long format for easier manipulation
     df_melted = lgas.melt(id_vars=['STATE', 'LGC', 'Region'], var_name='Date', value_name='Allocation')
