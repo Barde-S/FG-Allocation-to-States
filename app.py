@@ -662,16 +662,16 @@ if selected == "Dynamic":
     numeric_columns = lgas.select_dtypes(include=np.number).columns
     lgas[numeric_columns] = lgas[numeric_columns].apply(pd.to_numeric, errors='coerce')
 
-# Function to plot allocations by LGCs
+    # Function to plot allocations by LGCs
     def plot_allocations_by_lgc(state):
         filtered_data = lgas[lgas['STATE'] == state.upper()]
         total_allocations_by_lgc = filtered_data.set_index('LGC')[numeric_columns].sum(axis=1).sort_values(ascending=False)
 
-    # Creating the bar plot using Plotly
+        # Creating the bar plot using Plotly
         fig = px.bar(
-        total_allocations_by_lgc,
-        x=total_allocations_by_lgc.index,
-        y=total_allocations_by_lgc.values,
+        total_allocations_by_lgc.reset_index(),
+        x='LGC',
+        y=0,
         labels={'x': 'LGC', 'y': 'Total Allocation'},
         title=f'Total Allocations to {state.upper()} (2007-2024)'
     )
@@ -679,19 +679,18 @@ if selected == "Dynamic":
 
         return fig
 
-# List of unique states
+    # List of unique states
     unique_states = sorted(lgas['STATE'].unique())
 
-# Streamlit app
-    st.title(f'Allocations to LGCs Per State')
+    # Streamlit app
+    st.title('Allocations to LGCs Per State')
 
-# Selectbox for states
+    # Selectbox for states
     state_selected = st.selectbox("Select a state:", unique_states)
 
-# Plot allocations for the selected state
+    # Plot allocations for the selected state
     fig = plot_allocations_by_lgc(state_selected)
     st.plotly_chart(fig)
-
 
 
     df_melted['Year'] = df_melted['Date'].dt.year
