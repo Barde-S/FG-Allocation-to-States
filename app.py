@@ -535,7 +535,7 @@ if selected == "Dynamic":
             fig = go.Figure()
             fig.add_trace(go.Scatter(x=summed_data_a['Year'], y=summed_data_a['Allocation'], mode='lines+markers', name=f"{state_selected_a} - Total Sum"))
             fig.add_trace(go.Scatter(x=summed_data_b['Year'], y=summed_data_b['Allocation'], mode='lines+markers', name=f"{state_selected_b} - Total Sum"))
-            fig.update_layout(title='Total Allocations by State Over the Years', xaxis_title='Year', yaxis_title='Total Allocation')
+            fig.update_layout(title=f'Comparison of Total Allocations between {state_selected_a} and {state_selected_b} Over the Years', xaxis_title='Year', yaxis_title='Total Allocation')
         else:
             avg_data_a = filtered_data_a.groupby('Year')['Allocation'].mean().reset_index()
             avg_data_b = filtered_data_b.groupby('Year')['Allocation'].mean().reset_index()
@@ -573,6 +573,77 @@ if selected == "Dynamic":
 
     # Streamlit App
     st.title("Allocation to LGC Analysis")
+
+
+     state_selected_a = st.selectbox("Select LGC:", unique_states, key='state_c')
+
+# Select the year range
+    start_year, end_year = st.select_slider(
+    "Select the year range:",
+    options=unique_years,
+    value=(min(unique_years), max(unique_years))
+)
+
+# Select the type of plot
+    plot_type = st.radio(
+    "Select the type of plot:",
+    ('Total Sum', 'Average'),
+    key='plot_type_radio3'
+)
+
+    # Filter data based on user selection
+    filtered_data_a = allocations_by_year[
+    (allocations_by_year['LGC'] == state_selected_a) &
+    (allocations_by_year['Year'] >= start_year) &
+    (allocations_by_year['Year'] <= end_year)
+
+    fig = go.Figure()
+
+    if start_year == end_year:
+        if plot_type == 'Total Sum':
+        # Create monthly line plot for total sum
+            summed_data_a = filtered_data_a.groupby('Month')['Allocation'].sum().reindex(month_order).fillna(0)
+        
+            fig.add_trace(go.Scatter(x=summed_data_a.index, y=summed_data_a.values, mode='lines+markers', name=f"{state_selected_a} - Total Sum"))
+           
+            fig.update_layout(title=f'Total Allocations by Month for {state_selected_a} in {start_year}')
+        else:
+        # Create monthly line plot for average
+            avg_data_a = filtered_data_a.groupby('Month')['Allocation'].mean().reindex(month_order).fillna(0)
+           
+            fig.add_trace(go.Scatter(x=avg_data_a.index, y=avg_data_a.values, mode='lines+markers', name=f"{state_selected_a} - Average"))
+          
+            fig.update_layout(title=f'Average Allocations by Month for {state_selected_a} in {start_year}')
+    else:
+        if plot_type == 'Total Sum':
+        # Create yearly line plot for total sum
+            summed_data_a = filtered_data_a.groupby('Year')['Allocation'].sum().reset_index()
+          
+            fig.add_trace(go.Scatter(x=summed_data_a['Year'], y=summed_data_a['Allocation'], mode='lines+markers', name=f"{state_selected_a} - Total Sum"))
+           
+            fig.update_layout(title=f'Total Allocations to {state_selected_a} Over the Years')
+        else:
+        # Create yearly line plot for average
+            avg_data_a = filtered_data_a.groupby('Year')['Allocation'].mean().reset_index()
+           
+            fig.add_trace(go.Scatter(x=avg_data_a['Year'], y=avg_data_a['Allocation'], mode='lines+markers', name=f"{state_selected_a} - Average"))
+           
+            fig.update_layout(title=f'Average Allocations to {state_selected_a} Over the Years')
+
+    fig.update_xaxes(title_text='Year' if start_year != end_year else 'Month')
+    fig.update_yaxes(title_text='Total Allocation')
+    fig.update_layout(legend=dict(x=0, y=1, traceorder='normal'), xaxis=dict(tickangle=90))
+
+    # Display the plot
+    st.plotly_chart(fig)
+
+
+
+
+
+
+
+    
 
     # Select the first state
     state_selected_a = st.selectbox("Select the first LGC:", unique_states, key='state_c')
@@ -637,7 +708,7 @@ if selected == "Dynamic":
             fig.add_trace(go.Scatter(x=summed_data_a['Year'], y=summed_data_a['Allocation'], mode='lines+markers', name=f"{state_selected_a} - Total Sum"))
             fig.add_trace(go.Scatter(x=summed_data_b['Year'], y=summed_data_b['Allocation'], mode='lines+markers', name=f"{state_selected_b} - Total Sum"))
         
-            fig.update_layout(title='Total Allocations by LGC Over the Years')
+            fig.update_layout(title=f'Comparison of Total Allocations between {state_selected_a} and {state_selected_b} Over the Years' Over the Years')
         else:
         # Create yearly line plot for average
             avg_data_a = filtered_data_a.groupby('Year')['Allocation'].mean().reset_index()
