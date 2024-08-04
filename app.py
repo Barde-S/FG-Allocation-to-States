@@ -286,9 +286,9 @@ if selected == "Static":
     xaxis_title='State',
     yaxis_title='Total Allocation',
     xaxis_tickangle=-90,
-    title_font=dict(size=30, family='Arial', color='White'),
-    xaxis=dict(tickfont=dict(size=12)),
-    yaxis=dict(tickfont=dict(size=12)),
+    title_font=dict(size=20, family='Arial', color='White'),
+    xaxis=dict(tickfont=dict(size=10)),
+    yaxis=dict(tickfont=dict(size=10)),
     legend_title_text='Region'
 )
 
