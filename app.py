@@ -651,7 +651,7 @@ if selected == "Dynamic":
 # Select the year range
     start_year, end_year = st.select_slider(
     "Select the year range:",
-    key='date_g'
+    key='date_g',
     options=unique_years,
     value=(min(unique_years), max(unique_years))
 )
