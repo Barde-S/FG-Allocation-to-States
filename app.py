@@ -646,7 +646,7 @@ if selected == "Dynamic":
     
 
     # Select the first state
-    state_selected_a = st.selectbox("Select the first LGC:", unique_states, key='state_c')
+    state_selected_a = st.selectbox("Select the first LGC:", unique_states, key='state_g')
 
 # Select the year range
     start_year, end_year = st.select_slider(
@@ -659,7 +659,7 @@ if selected == "Dynamic":
     plot_type = st.radio(
     "Select the type of plot:",
     ('Total Sum', 'Average'),
-    key='plot_type_radio3'
+    key='plot_type_radiog'
 )
 
     # Filter data based on user selection
@@ -670,7 +670,7 @@ if selected == "Dynamic":
 ]
 
     # Filter data based on user selection for second LGC
-    state_selected_b = st.selectbox("Select the second LGC:", unique_states, key='state_d')
+    state_selected_b = st.selectbox("Select the second LGC:", unique_states, key='state_g')
 
     filtered_data_b = allocations_by_year[
     (allocations_by_year['LGC'] == state_selected_b) &
