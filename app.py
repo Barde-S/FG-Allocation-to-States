@@ -456,8 +456,8 @@ if selected == "Dynamic":
    
 
 
-   month_order = ['2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06',
-               '2023-07', '2023-08', '2023-09', '2023-10', '2023-11', '2023-12']
+    month_order = ['2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06',
+                   '2023-07', '2023-08', '2023-09', '2023-10', '2023-11', '2023-12']
 
 # Assuming `df` is your original DataFrame
 # Melt the DataFrame to long format for easier manipulation
