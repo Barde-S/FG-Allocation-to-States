@@ -674,7 +674,7 @@ if selected == "Dynamic":
     
         # Creating the bar plot using Plotly
         fig = px.bar(
-        total_allocations_by_lgc.sort_values(ascending=False),
+        total_allocations_by_lgc.sort_values(ascending=False, by='Total Allocation'),
         x='LGC',
         y='Total Allocation',
         labels={'LGC': 'LGC', 'Total Allocation': 'Total Allocation'},
