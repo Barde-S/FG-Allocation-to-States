@@ -662,7 +662,7 @@ if selected == "Dynamic":
 
     # Function to plot allocations by LGCs
     def plot_allocations_by_lgc(state):
-        filtered_data = lgas[lgas['STATE'] == state.Capitalize()]
+        filtered_data = lgas[lgas['STATE'] == state.capitalize()]
 
         if filtered_data.empty:
             st.error(f"No data available for state '{state.upper()}'.")
