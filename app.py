@@ -459,7 +459,6 @@ if selected == "Dynamic":
     month_order = ['2023-01', '2023-02', '2023-03', '2023-04', '2023-05', '2023-06',
                    '2023-07', '2023-08', '2023-09', '2023-10', '2023-11', '2023-12']
 
-# Assuming `df` is your original DataFrame
 # Melt the DataFrame to long format for easier manipulation
     df_melted = df.melt(id_vars=['State', 'Region'], var_name='Date', value_name='Allocation')
 
@@ -658,21 +657,27 @@ if selected == "Dynamic":
 
 
 
-    # Convert numeric columns to numeric type
     numeric_columns = lgas.select_dtypes(include=np.number).columns
     lgas[numeric_columns] = lgas[numeric_columns].apply(pd.to_numeric, errors='coerce')
 
     # Function to plot allocations by LGCs
     def plot_allocations_by_lgc(state):
         filtered_data = lgas[lgas['STATE'] == state.upper()]
-        total_allocations_by_lgc = filtered_data.set_index('LGC')[numeric_columns].sum(axis=1).sort_values(ascending=False)
 
+        if filtered_data.empty:
+            st.error(f"No data available for state '{state.upper()}'.")
+            return None
+
+        # Calculate total allocations by LGC
+        total_allocations_by_lgc = filtered_data.set_index('LGC')[numeric_columns].sum(axis=1).reset_index()
+        total_allocations_by_lgc.columns = ['LGC', 'Total Allocation']
+    
         # Creating the bar plot using Plotly
         fig = px.bar(
-        total_allocations_by_lgc.reset_index(),
+        total_allocations_by_lgc,
         x='LGC',
-        y=0,
-        labels={'x': 'LGC', 'y': 'Total Allocation'},
+        y='Total Allocation',
+        labels={'LGC': 'LGC', 'Total Allocation': 'Total Allocation'},
         title=f'Total Allocations to {state.upper()} (2007-2024)'
     )
         fig.update_layout(xaxis_title='LGC', yaxis_title='Total Allocation', xaxis_tickangle=-90)
@@ -690,10 +695,21 @@ if selected == "Dynamic":
 
     # Plot allocations for the selected state
     fig = plot_allocations_by_lgc(state_selected)
-    st.plotly_chart(fig)
+    if fig:
+        st.plotly_chart(fig)
 
 
+
+    df_melted = df.melt(id_vars=['State', 'Region'], var_name='Date', value_name='Allocation')
+
+# Convert Date column to datetime format
+    df_melted['Date'] = pd.to_datetime(df_melted['Date'], format='%Y-%m')
+
+# Extract the year and month from the Date column
     df_melted['Year'] = df_melted['Date'].dt.year
+    df_melted['Month'] = df_melted['Date'].dt.strftime('%Y-%m')
+    
+    
 
     # Function to extract the month from the date
     def extract_month(date):
