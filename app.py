@@ -698,7 +698,7 @@ if selected == "Dynamic":
 
     # Function to extract the month from the date
     def extract_month(date):
-    return date.month
+        return date.month
 
     # Function to perform regional analysis with enhanced visualizations
     def regional_analysis(df, region_name):
