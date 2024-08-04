@@ -671,7 +671,7 @@ if selected == "Dynamic":
 ]
 
     # Filter data based on user selection for second LGC
-    state_selected_b = st.selectbox("Select the second LGC:", unique_states, key='state_g')
+    state_selected_b = st.selectbox("Select the second LGC:", unique_states, key='states_g')
 
     filtered_data_b = allocations_by_year[
     (allocations_by_year['LGC'] == state_selected_b) &
