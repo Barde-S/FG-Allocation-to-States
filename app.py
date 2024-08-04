@@ -208,7 +208,7 @@ if selected == "Static":
 
     fig_avg.update_layout(
    # title='Yearly Total Allocations Time Series by Region',
-    title=('Yearly Total Allocations Time Series by Region', {'font': {'size': 30, 'color': 'white', 'family': 'Arial'}}),
+    title='Yearly Total Allocations Time Series by Region',
     xaxis_title='Date',
     yaxis_title='Total Allocation',
     legend_title='Region',
