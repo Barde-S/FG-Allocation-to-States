@@ -708,7 +708,7 @@ if selected == "Dynamic":
             fig.add_trace(go.Scatter(x=summed_data_a['Year'], y=summed_data_a['Allocation'], mode='lines+markers', name=f"{state_selected_a} - Total Sum"))
             fig.add_trace(go.Scatter(x=summed_data_b['Year'], y=summed_data_b['Allocation'], mode='lines+markers', name=f"{state_selected_b} - Total Sum"))
         
-            fig.update_layout(title=f'Comparison of Total Allocations between {state_selected_a} and {state_selected_b} Over the Years' Over the Years')
+            fig.update_layout(title=f'Comparison of Total Allocations between {state_selected_a} and {state_selected_b} Over the Years')
         else:
         # Create yearly line plot for average
             avg_data_a = filtered_data_a.groupby('Year')['Allocation'].mean().reset_index()
